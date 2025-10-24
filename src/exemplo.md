@@ -129,3 +129,4 @@ Confira a versão do Diagrama interativa clicando no botão abaixo!
 
 Source: https://cfbrasz.github.io/Voronoi.html\
 Source: http://www.raymondhill.net/voronoi/rhill-voronoi.html
+

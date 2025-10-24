@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <title>O algoritmo de Fortune</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,700;1,400;1,700&family=Open+Sans+Condensed:ital,wght@0,300;1,300&family=Open+Sans:ital,wght@0,300;0,400;0,700;0,800;1,300;1,400;1,700;1,800&family=Oxygen+Mono&family=Josefin+Sans:ital,wght@0,200;0,600;1,200;1,600&display=swap">
+    <link rel="stylesheet" href="assets/css/reset.css">
+    <link rel="stylesheet" href="assets/css/highlight.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/color.css">
+    <!--<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>-->
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script async src="https://static.codepen.io/assets/embed/ei.js"></script>
+    <script src="assets/js/highlight.js"></script>
+    <script src="assets/js/script.js"></script>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <a href="">abrir tudo</a>
+            <a href="">fechar tudo</a>
+        </header>
+        <main>
+
+            <h1>O algoritmo de Fortune</h1>
+<p>Uma das formas mais eficientes de gerar diagramas de Voronoi é com o algoritmo de Fortune. Para entender seu funcionamento, vamos partir de uma ideia diferente — mas calma, no fim tudo fará sentido.</p>
+<p>Vamos começar com o exemplo abaixo:</p>
+<blockquote class="question">
+<p>Pergunta</p>
+<p>Pegue um papel e caneta e desenhe um ponto pequeno (chamaremos de ponto1), com uma linha horizontal poucos centimetros abaixo e desenhe 5 pontos sobre essa linha (Facilita se voce colocar o ponto do meio exatamente embaixo do ponto1). Agora tente encontrar os pontos de equidistancia entre o ponto original e os pontos sobre a linha.</p>
+<p>Vai ficar algo parecido com isso:</p>
+<figure class="img"><img src="img/mapa8tr.jpg" alt="Ponto e Pontos na linha"></figure>
+<p>Agora, tente encontrar os pontos equidistantes entre os pontos da linha e o ponto 1</p>
+<details class="answer">
+<summary>Resposta</summary>
+<p>Seu diagrama deve ficar algo parecido com:</p>
+<figure class="img"><img src="img/mapa9tr.jpg" alt="Pontos de equidistancia"></figure>
+</details>
+</blockquote>
+<blockquote class="question">
+<p>Pergunta</p>
+<p>Você consegue perceber alguma relação entre esses pontos? Que formato esse padrão formaria?</p>
+<details class="answer">
+<summary>Resposta</summary>
+<p>Voce deve ter concluido que os pontos de equidistancia formam uma parabola</p>
+<figure class="img"><img src="img/mapa10tr.jpg" alt="Parabola"></figure>
+</details>
+</blockquote>
+<p>Agora partimos para um segundo instante. Vamos imaginar que a sweeping line desceu um pouco, para um pouco mais longe do nosso ponto 1.</p>
+<blockquote class="question">
+<p>Pergunta</p>
+<p>Tente pensar no que vai acontecer com os pontos e então com a parabola.</p>
+<p>Sera que ela vai abrir/fechar mais? Sera que vai permanecer igual?</p>
+<p>Se nao estiver conseguindo vizualizar, use o papel e compare as respostas. Para que a diferença fique mais clara, faca uma sweeping line bem mais longe do ponto.</p>
+<details class="answer">
+<summary>Resposta</summary>
+<p>A parabola vai abrir cada vez mais quando a sweeping line desce.</p>
+<figure class="img"><img src="img/mapa11tr.jpg" alt="Parabola aberta"></figure>
+</details>
+</blockquote>
+<p>Agora nos deduzimos tudo o que deveriamos para um ponto so, e esta na hora de acrescentar um segundo ponto, ai mais pra frente um terceiro.</p>
+<hr>
+<p>Vamos começar evoluindo a atividade que fizemos para um ponto, agora usando 2. Cada um vai formar a sua parabola, que vai seguir o mesmo padrão da atividade que fizemos com um ponto so. Mas agora…</p>
+<blockquote class="question">
+<p>Pergunta</p>
+<p>Vamos pensar agora sobre a interseção dessas parabolas.
+Desenvolvemos um arquivo no GeoGebra que vai ajudar bastante a tirar essa conclusão. Tente encontrar o tipo de relação entre os pontos de interseção com a sweeping line variando.</p>
+<p>Vai ser uma relação linear? Quadratica? Logaritmica?</p>
+<p>INCLUIR ARQUIVO GEOGEBRA QUE MOSTRA INTERSEÇÃO ENTRE 2 PONTOS</p>
+<details class="answer">
+<summary>Resposta</summary>
+<p>Para obter a resposta, ativar o trace do ponto de interseção.</p>
+</details>
+</blockquote>
+<blockquote class="question">
+<p>Pergunta</p>
+<p>Sabendo isso, O que conseguimos deduzir sobre pontos que para um lado da linha e para o outro? O que todos tem em comum com quais respectivos pontos de interesse?</p>
+<p>Dica: Pense na distancia</p>
+<details class="answer">
+<summary>Resposta</summary>
+<p>Conseguimos concluir que pontos de cada lado da linha estao mais proximos do ponto de interesse que esta do mesmo lado da linha</p>
+</details>
+</blockquote>
+<p>Parabens, voce acabou de entender a logica por traz de um algoritmo de Fortune para 2 pontos em um grafico!</p>
+<hr>
+<p>Antes de adicionar-mos um ponto</p>
+<p>Agora que entendemos o conceito, vamos adicionar um terceiro ponto. A lógica é a mesma para 4, 5 ou mais pontos, então, ao compreendermos o caso com 3, poderemos generalizar para qualquer quantidade.</p>
+<p>Voltando a pensar nas parabolas criadas e nossa sweeping line, quais sao os pontos de equidistancia entre qualquer um dos pontos e a sweeping line? Perceba que esses pontos vao formar uma linha, e chamaremos essa linha de beachline
+Dica: Pense nas parabolas e seus pontos de intersecoes.</p>
+<p>O que podemos dizer sobre os pontos que estao nas parabolas mas nao na beachline?</p>
+<h3>TRES PONTOS</h3>
+
+
+        </main>
+        <footer>
+            <a href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank">
+                <img alt="CC BY-SA 4.0" src="https://i.creativecommons.org/l/by-sa/4.0/80x15.png" title="Creative Commons Attribution-ShareAlike 4.0 International License" />
+            </a>
+            © 2024 Marcelo Hashimoto
+        </footer>
+    </div>
+</body>
+
+</html>
