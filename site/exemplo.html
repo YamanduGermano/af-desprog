@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <title>Algoritmo de Fortune para Diagrama de Voronoi</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,700;1,400;1,700&family=Open+Sans+Condensed:ital,wght@0,300;1,300&family=Open+Sans:ital,wght@0,300;0,400;0,700;0,800;1,300;1,400;1,700;1,800&family=Oxygen+Mono&family=Josefin+Sans:ital,wght@0,200;0,600;1,200;1,600&display=swap">
+    <link rel="stylesheet" href="assets/css/reset.css">
+    <link rel="stylesheet" href="assets/css/highlight.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/color.css">
+    <!--<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>-->
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script async src="https://static.codepen.io/assets/embed/ei.js"></script>
+    <script src="assets/js/highlight.js"></script>
+    <script src="assets/js/script.js"></script>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <a href="">abrir tudo</a>
+            <a href="">fechar tudo</a>
+        </header>
+        <main>
+
+            <h1>Algoritmo de Fortune para Diagrama de Voronoi</h1>
+<h2>Como se encontrar pela floresta</h2>
+<h2>Motivação</h2>
+<p>Imagine que você é um pássaro!
+Você está voando o dia todo e não conseguiu beber nenhum gole de água. Por sorte, você sabe que ao seu redor, num raio de poucos quilômetros, existem algumas fontes de água. Aqui está o mapa da floresta:</p>
+<figure class="img"><img src="img/mapa1.jpg" alt="Mapa da floresta"></figure>
+<p>Cada caixinha azul é um ponto de água diferente.</p>
+<blockquote class="warning">
+<p>Aviso</p>
+<p>Como sabemos qual ponto de água mais próximo de você?</p>
+</blockquote>
+<h2>Métodos de localização:</h2>
+<h3>Método das distâncias</h3>
+<p>Você sabe sua posição e a posição das fontes de água ao seu redor pois você é um pássaro e seu senso de localização é ótimo! (quase um GPS biológico).</p>
+<figure class="img"><img src="img/mapa2.jpg" alt="Mapa da florestacom coordenadas"></figure>
+<p>É possível calcular todas as distâncias entre os você e cada um dos pontos utilizando o teorema de pitágoras.</p>
+<blockquote class="question">
+<p>Pergunta</p>
+<p>Tente encontrar o menor valor entre eles:</p>
+<details class="answer">
+<summary>Resposta</summary>
+<p>O arquivo <code class="language-md">dist_m1.py</code> calcula todas essas distâncias e imprime seus valores.</p>
+<figure class="table"><table>
+<thead>
+<tr>
+<th>Lugar</th>
+<th>Distância</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Queda d’água</td>
+<td>1.12 km</td>
+</tr>
+<tr>
+<td>Riacho</td>
+<td>2.92 km</td>
+</tr>
+<tr>
+<td>Pedra do sapo</td>
+<td>1.80 km</td>
+</tr>
+<tr>
+<td>Córrego azul</td>
+<td>2.24 km</td>
+</tr>
+<tr>
+<td>Rio Branco</td>
+<td>2.24 km</td>
+</tr>
+<tr>
+<td>Pedra molhada</td>
+<td>2.12 km</td>
+</tr>
+<tr>
+<td>Lagoa doce</td>
+<td>2.55 km</td>
+</tr>
+</tbody>
+</table></figure>
+<p>O ponto d’água mais próximo seria a <strong>Queda d’água</strong> com <strong>1.12km</strong> de distância</p>
+</details>
+</blockquote>
+<p>É notável que essa tarefa não é muito eficiente. E, se saíssemos da mesma posição, precisaríamos calcular todas as distâncias novamente.</p>
+<p>E se existisse um mapa que indique, para qualquer posição, qual a fonte d’água mais próxima?</p>
+<h3>Subdivisão por células</h3>
+<figure class="img"><img src="img/mapa4.jpg" alt="Duas fontes de água no mapa"></figure>
+<p>Como podemos dividir esse espaço de modo a indicar, para qualquer ponto no mapa, qual a fonte mais próxima?</p>
+<blockquote class="question">
+<p>Pergunta</p>
+<p>Pegue um papel e uma caneta e tente desenhar esse diagrama!</p>
+<details class="answer">
+<summary>Resposta</summary>
+<p>Vamos traçar uma aresta que passa entre ambas as fontes e pintar de azul todos os pontos em que estão à esquerda dela e de verde aqueles que estão a sua direita:</p>
+<figure class="img"><img src="img/mapa5.jpg" alt="Duas fontes de água no mapa"></figure>
+<p>Agora, sabemos que, se você estiver em qualquer ponto azul, o ponto mais próximo é a <code class="language-Fonte">A</code>. Se você estiver em qualquer ponto verde, porém, o ponto mais próximo é a <code class="language-Fonte">B</code>.</p>
+</details>
+<p>Agora vamos tentar com três pontos:</p>
+<figure class="img"><img src="img/mapa6.jpg" alt="Três fontes de água no mapa"></figure>
+
+</blockquote>
+<blockquote class="question">
+<p>Pergunta</p>
+<p>Pegue um papel e uma caneta e tente desenhar esse diagrama!</p>
+<details class="answer">
+<summary>Resposta</summary>
+<p>Se traçarmos uma reta que divide cada um dos pontos d’água entre si, podemos criar três arestas que subdividem o espaço em três células distintas.</p>
+<!-- Se ligarmos uma reta ligando dois pontos quaisquer e traçarmos outra reta perpendicular a ela que cruza o seu centro, conseguimos subdividir o espaço com três arestas. -->
+<figure class="img"><img src="img/mapa7.jpg" alt="Duas fontes de água no mapa"></figure>
+<p><strong>Observe atentamente esse diagrama e preste atenção nos detalhes:</strong></p>
+<ul>
+<li>
+<p>O cruzamento de todos os segmentos de reta é no <strong>baricentro</strong> do triangulo formado pelas ligações entre os pontos.</p>
+</li>
+<li>
+<p>O ângulo entre cada uma das arestas e as retas que ligam 2 pontos é de 90º.</p>
+</li>
+<li>
+<p>Uma aresta sempre <strong>divide ao meio</strong> uma reta que liga dois pontos.</p>
+</li>
+</ul>
+<p>Assim, é muito mais fácil ver qual o ponto d’água mais próximo para qualquer ponto do mapa!</p>
+</details>
+</blockquote>
+<h4>Diagrama de Voronoi:</h4>
+<p>Dividindo pontos com arestas dessa maneira, podemos criar um mapa que nos conta exatamente qual o ponto mais próximo! Esse é o princípio do <strong>Diagrama de Voronoi</strong>.</p>
+<p>Confira a versão do Diagrama interativa clicando no botão abaixo!</p>
+<p><button onclick="VoronoiDemo.init()">Iniciar Simulação de Voronoi</button></p>
+<div id="divroot" class="canvasWidth">
+<div id="canvasParent">
+<canvas id="voronoiCanvas" style="margin:auto 0px; cursor:crosshair; background-color: white; width:300px; height:150px"></canvas>
+</div>
+</div>
+<p>Source: https://cfbrasz.github.io/Voronoi.html<br>
+Source: http://www.raymondhill.net/voronoi/rhill-voronoi.html</p>
+
+
+        </main>
+        <footer>
+            <a href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank">
+                <img alt="CC BY-SA 4.0" src="https://i.creativecommons.org/l/by-sa/4.0/80x15.png" title="Creative Commons Attribution-ShareAlike 4.0 International License" />
+            </a>
+            © 2024 Marcelo Hashimoto
+        </footer>
+    </div>
+</body>
+
+</html>
