@@ -34,6 +34,8 @@ Voce deve ter concluido que os pontos de equidistancia formam uma parabola
 
 ???
 
+
+
 Agora partimos para um segundo instante. Vamos imaginar que a sweeping line desceu um pouco, para um pouco mais longe do nosso ponto 1. 
 
 ???
@@ -41,7 +43,7 @@ Tente pensar no que vai acontecer com os pontos e então com a parabola.
 
 Sera que ela vai abrir/fechar mais? Sera que vai permanecer igual?
 
-Se nao estiver conseguindo vizualizar, use o papel e compare as respostas. Para que a diferença fique mais clara, faca uma sweeping line bem mais longe do ponto. 
+Se nao estiver conseguindo visualizar, use o papel e compare as respostas. Para que a diferença fique mais clara, faca uma sweeping line bem mais longe do ponto. 
 
 :::
 
@@ -50,6 +52,10 @@ A parabola vai abrir cada vez mais quando a sweeping line desce.
 ![Parabola aberta](mapa11tr.jpg)
 
 ???
+
+Caso tenha restado alguma duvida, desenvolvemos um arquivo no geogebra que facilita muito o entendimento
+
+ARQUIVO DO GEOGEBRA 1 PONTO
 
 Agora nos deduzimos tudo o que deveriamos para um ponto so, e esta na hora de acrescentar um segundo ponto, ai mais pra frente um terceiro. 
 
@@ -86,16 +92,39 @@ Parabens, voce acabou de entender a logica por traz de um algoritmo de Fortune p
 
 ---
 
-Antes de adicionar-mos um ponto
+Antes de adicionar-mos um ponto, vamos entender o conceito da beachline.
+
+Como no início do handout, pense nos pontos equidistantes entre um ponto e a sweeping line — eles formam uma parábola. Pensou? Agora imagine duas dessas parábolas. A beachline é formada pelos pontos que estão ao mesmo tempo nas duas parábolas e que estão mais próximos da sweeping line em cada posição no eixo x.
+
+Aqui esta uma imagem que nos ajuda a visualizar isso. 
+
+
 
 Agora que entendemos o conceito, vamos adicionar um terceiro ponto. A lógica é a mesma para 4, 5 ou mais pontos, então, ao compreendermos o caso com 3, poderemos generalizar para qualquer quantidade.
 
 
 Voltando a pensar nas parabolas criadas e nossa sweeping line, quais sao os pontos de equidistancia entre qualquer um dos pontos e a sweeping line? Perceba que esses pontos vao formar uma linha, e chamaremos essa linha de beachline
-Dica: Pense nas parabolas e seus pontos de intersecoes.
+Dica: Pense nas parabolas e seus pontos de interseçoes.
 
-O que podemos dizer sobre os pontos que estao nas parabolas mas nao na beachline? 
+Abaixo esta um arquivo no GeoGebra que facilita essa visualização e entendimento.
+
+ARQUIVO DO GEOGEBRA QUE MOSTRA A BEACHLINE
 
 
 ### TRES PONTOS
 
+GUIZAO VAI ESCREVER AS ATIVIDADES PROS 3 PONTOS
+
+LEMBRA DE INCLUIR UM ESPACO PRO GEOGEBRA
+
+---
+
+# Complexidade
+
+O algoritmo de Fortune tem complexidade O(n log n). Isso quer dizer que, conforme o número de pontos aumenta, o tempo de execução cresce um pouco mais rápido que de forma linear.
+A razão disso é que o algoritmo precisa processar os pontos em uma ordem específica, simulando a passagem da sweeping line. Cada vez que um novo evento acontece (por exemplo, quando a linha encontra um ponto ou quando duas parábolas se cruzam), o algoritmo atualiza o diagrama. O número total de atualizações é proporcional a n, já que há um evento principal para cada ponto. Essas atualizações não são instantâneas — elas exigem um pequeno custo adicional, que é o “log n” na conta.
+Em resumo: ele é rápido porque analisa cada ponto apenas quando necessário e faz atualizações de forma organizada, sem precisar recalcular todo o diagrama a cada passo.
+
+Outros algoritmos para gerar diagramas de Voronoi são menos eficientes que o de Fortune.
+Um exemplo é o método direto por distância, que compara cada ponto do plano com todos os sítios e tem complexidade O(n²). Outro é o método incremental, que adiciona os pontos um a um e atualiza o diagrama a cada inserção, também com custo próximo de O(n²).
+Por isso, o algoritmo de Fortune se destaca como o mais rápido entre eles, com complexidade O(n log n).
