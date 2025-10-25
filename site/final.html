@@ -2,7 +2,7 @@
 <html lang="pt-br">
 
 <head>
-    <title>O algoritmo de Fortune</title>
+    <title>Algoritmo de Fortune para Diagrama de Voronoi</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,700;1,400;1,700&family=Open+Sans+Condensed:ital,wght@0,300;1,300&family=Open+Sans:ital,wght@0,300;0,400;0,700;0,800;1,300;1,400;1,700;1,800&family=Oxygen+Mono&family=Josefin+Sans:ital,wght@0,200;0,600;1,200;1,600&display=swap">
@@ -25,7 +25,115 @@
         </header>
         <main>
 
-            <h1>O algoritmo de Fortune</h1>
+            <h1>Algoritmo de Fortune para Diagrama de Voronoi</h1>
+<h2>Como se encontrar pela floresta</h2>
+<h2>Motivação</h2>
+<p>Imagine que você é um pássaro!
+Você está voando o dia todo e não conseguiu beber nenhum gole de água. Por sorte, você sabe que ao seu redor, num raio de poucos quilômetros, existem algumas fontes de água. Aqui está o mapa da floresta:</p>
+<figure class="img"><img src="img/mapa1.jpg" alt="Mapa da floresta"></figure>
+<p>Cada caixinha azul é um ponto de água diferente.</p>
+<blockquote class="warning">
+<p>Aviso</p>
+<p>Como sabemos qual ponto de água mais próximo de você?</p>
+</blockquote>
+<h2>Métodos de localização:</h2>
+<h2>Método das distâncias</h2>
+<p>Você sabe sua posição e a posição das fontes de água ao seu redor pois você é um pássaro e seu senso de localização é ótimo! (quase um GPS biológico).</p>
+<figure class="img"><img src="img/mapa2.jpg" alt="Mapa da florestacom coordenadas"></figure>
+<p>É possível calcular todas as distâncias entre os você e cada um dos pontos utilizando o teorema de pitágoras.</p>
+<blockquote class="question">
+<p>Pergunta</p>
+<p>Tente encontrar o menor valor entre eles:</p>
+<details class="answer">
+<summary>Resposta</summary>
+<p>O arquivo <code class="language-md">dist_m1.py</code> calcula todas essas distâncias e imprime seus valores.</p>
+<figure class="table"><table>
+<thead>
+<tr>
+<th>Lugar</th>
+<th>Distância</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Queda d’água</td>
+<td>1.12 km</td>
+</tr>
+<tr>
+<td>Riacho</td>
+<td>2.92 km</td>
+</tr>
+<tr>
+<td>Pedra do sapo</td>
+<td>1.80 km</td>
+</tr>
+<tr>
+<td>Córrego azul</td>
+<td>2.24 km</td>
+</tr>
+<tr>
+<td>Rio Branco</td>
+<td>2.24 km</td>
+</tr>
+<tr>
+<td>Pedra molhada</td>
+<td>2.12 km</td>
+</tr>
+<tr>
+<td>Lagoa doce</td>
+<td>2.55 km</td>
+</tr>
+</tbody>
+</table></figure>
+<p>O ponto d’água mais próximo seria a <strong>Queda d’água</strong> com <strong>1.12km</strong> de distância</p>
+</details>
+</blockquote>
+<p>É notável que essa tarefa não é muito eficiente. E, se saíssemos da mesma posição, precisaríamos calcular todas as distâncias novamente.</p>
+<p>E se existisse um mapa que indique, para qualquer posição, qual a fonte d’água mais próxima?</p>
+<h2>Subdivisão por células</h2>
+<figure class="img"><img src="img/mapa4.jpg" alt="Duas fontes de água no mapa"></figure>
+<p>Como podemos dividir esse espaço de modo a indicar, para qualquer ponto no mapa, qual a fonte mais próxima?</p>
+<blockquote class="question">
+<p>Pergunta</p>
+<p>Pegue um papel e uma caneta e tente desenhar esse diagrama!</p>
+<details class="answer">
+<summary>Resposta</summary>
+<p>Vamos traçar uma aresta que passa entre ambas as fontes e pintar de azul todos os pontos em que estão à esquerda dela e de verde aqueles que estão a sua direita:</p>
+<figure class="img"><img src="img/mapa5.jpg" alt="Duas fontes de água no mapa"></figure>
+<p>Agora, sabemos que, se você estiver em qualquer ponto azul, o ponto mais próximo é a <code class="language-Fonte">A</code>. Se você estiver em qualquer ponto verde, porém, o ponto mais próximo é a <code class="language-Fonte">B</code>.</p>
+</details>
+<p>Agora vamos tentar com três pontos:</p>
+<figure class="img"><img src="img/mapa6.jpg" alt="Três fontes de água no mapa"></figure>
+
+</blockquote>
+<blockquote class="question">
+<p>Pergunta</p>
+<p>Pegue um papel e uma caneta e tente desenhar esse diagrama!</p>
+<details class="answer">
+<summary>Resposta</summary>
+<p>Se traçarmos uma reta que divide cada um dos pontos d’água entre si, podemos criar três arestas que subdividem o espaço em três células distintas.</p>
+<!-- Se ligarmos uma reta ligando dois pontos quaisquer e traçarmos outra reta perpendicular a ela que cruza o seu centro, conseguimos subdividir o espaço com três arestas. -->
+<figure class="img"><img src="img/mapa7.jpg" alt="Duas fontes de água no mapa"></figure>
+<p><strong>Observe atentamente esse diagrama e preste atenção nos detalhes:</strong></p>
+<ul>
+<li>
+<p>O cruzamento de todos os segmentos de reta é no <strong>baricentro</strong> do triangulo formado pelas ligações entre os pontos.</p>
+</li>
+<li>
+<p>O ângulo entre cada uma das arestas e as retas que ligam 2 pontos é de 90º.</p>
+</li>
+<li>
+<p>Uma aresta sempre <strong>divide ao meio</strong> uma reta que liga dois pontos.</p>
+</li>
+</ul>
+<p>Assim, é muito mais fácil ver qual o ponto d’água mais próximo para qualquer ponto do mapa!</p>
+</details>
+</blockquote>
+<h2>Diagrama de Voronoi:</h2>
+<p>Dividindo pontos com arestas dessa maneira, podemos criar um mapa que nos conta exatamente qual o ponto mais próximo! Esse é o princípio do <strong>Diagrama de Voronoi</strong>.</p>
+<figure class="img"><img src="img/Coloured_Voronoi_2D.png" alt="Diagrama de Voronoi"></figure>
+<p>Source: <a href="https://pt.wikipedia.org/wiki/Diagrama_de_Voronoy" target="_blank">Wikipédia</a></p>
+<h2>O algoritmo de Fortune</h2>
 <p>Uma das formas mais eficientes de gerar diagramas de Voronoi é com o algoritmo de Fortune. Para entender seu funcionamento, vamos partir de uma ideia diferente — mas calma, no fim tudo fará sentido.</p>
 <p>Vamos começar com o exemplo abaixo:</p>
 <blockquote class="question">
@@ -99,10 +207,14 @@ Desenvolvemos um arquivo no GeoGebra que vai ajudar bastante a tirar essa conclu
 <p>Voltando a pensar nas parabolas criadas e nossa sweeping line, quais sao os pontos de equidistancia entre qualquer um dos pontos e a sweeping line? Perceba que esses pontos vao formar uma linha, e chamaremos essa linha de beachline
 Dica: Pense nas parabolas e seus pontos de interseçoes.</p>
 <p>Abaixo esta um arquivo no GeoGebra que facilita essa visualização e entendimento.</p>
-<p>ARQUIVO DO GEOGEBRA QUE MOSTRA A BEACHLINE</p>
+<div style="position:relative; width:fit">
+<iframe src="https://www.geogebra.org/calculator/nghuzruv?embed" allowfullscreen="" style="border: 1px solid #e4e4e4;border-radius: 4px; width:100%; height:70vh" frameborder="0"></iframe>
+</div>
 <h3>TRES PONTOS</h3>
 <p>GUIZAO VAI ESCREVER AS ATIVIDADES PROS 3 PONTOS</p>
-<p>LEMBRA DE INCLUIR UM ESPACO PRO GEOGEBRA</p>
+<div style="position:relative; width:fit">
+<iframe src="https://www.geogebra.org/calculator/z9zcsu6s?embed" allowfullscreen="" style="border: 1px solid #e4e4e4;border-radius: 4px; width:100%; height:70vh" frameborder="0"></iframe>
+</div>
 <hr>
 <h3>Complexidade</h3>
 <p>O algoritmo de Fortune tem complexidade O(n log n). Isso quer dizer que, conforme o número de pontos aumenta, o tempo de execução cresce um pouco mais rápido que de forma linear.
