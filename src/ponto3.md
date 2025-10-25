@@ -93,14 +93,9 @@ enquanto a beachline continua se deformando abaixo.
 Resumindo o Processo
 ---
 
-Cada ponto gera uma parábola conforme a sweeping line desce.
-
-As interseções dessas parábolas formam as arestas do diagrama.
-
-Quando três parábolas se encontram e formam uma circunferência tangente à sweeping line:
-
-o ponto mais distante é “engolido” → evento de círculo;
-
-o cruzamento das três parábolas é salvo → novo vértice de Voronoi.
-
-A beachline continua viva, atualizando-se a cada novo ponto ou evento.
+- Cada ponto gera uma parábola conforme a sweeping line desce.
+- As interseções dessas parábolas formam as arestas do diagrama.
+- Quando três parábolas se encontram e formam uma circunferência tangente à sweeping line:
+- O ponto mais distante é “engolido” → evento de círculo;
+- O cruzamento das três parábolas é salvo → novo vértice de Voronoi.
+- A beachline continua viva, atualizando-se a cada novo ponto ou evento.
