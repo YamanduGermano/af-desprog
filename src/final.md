@@ -191,11 +191,29 @@ Agora nos deduzimos tudo o que deveriamos para um ponto so, e esta na hora de ac
 ---
 Vamos começar evoluindo a atividade que fizemos para um ponto, agora usando 2. Cada um vai formar a sua parabola, que vai seguir o mesmo padrão da atividade que fizemos com um ponto so. Mas agora...
 
+
+A ADICIONAR: O QUE SIGNIFICA A INTERSECCAO ENTRE DUAS PARABOLAS ; FAZER O LEITOR PERCEBER QUE ESTA FORMANDO UMA ARESTA
+
 ???
-Vamos pensar agora sobre a interseção dessas parabolas. 
+
+O que significa a interseção entre duas parabolas?
+
+IMAGEM QUE REPRESENTA ISSO
+
+:::
+
+A interseção entre duas parabolas representa um ponto de equidistancia entre as duas parabolas e a sweeping line
+
+???
+
+
+???
+
+Sabendo disso, imagine a sweeping line descendo em relação a sua posição anterior. Imagine o que pode estar acontecendo com os pontos de interseção. 
+
+
 Desenvolvemos um arquivo no GeoGebra que vai ajudar bastante a tirar essa conclusão. Tente encontrar o tipo de relação entre os pontos de interseção com a sweeping line variando. 
 
-Vai ser uma relação linear? Quadratica? Logaritmica?
 
 <div style="position:relative; width:fit">
 
@@ -206,12 +224,15 @@ Vai ser uma relação linear? Quadratica? Logaritmica?
 :::
 
 Para obter a resposta, ativar o trace do ponto de interseção.
+
+Voce deve ter concluido que os pontos tem uma relação linear uns com os outros. Essa linha que esta sendo formada e justamente uma das arestas do diagrama de Voronoi. 
+Então conforme a sweeping line desce, o algoritmo esta traçando a aresta que divide os dois pontos no diagrama
 ???
 
 
 ???
 
-Sabendo isso, O que conseguimos deduzir sobre pontos que para um lado da linha e para o outro? O que todos tem em comum com quais respectivos pontos de interesse?
+Então sabendo isso e o que falamos anteriormente sobre o diagrama de Voronoi, o que conseguimos deduzir sobre pontos que de um lado da linha e do outro? O que todos tem em comum com quais respectivos pontos de interesse?
 
 Dica: Pense na distancia
 
