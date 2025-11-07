@@ -212,10 +212,109 @@ Você está voando o dia todo e não conseguiu beber nenhum gole de água. Por s
 <figure class="img"><img src="img/mapa14.jpg" alt="Beachline com 4 pontos"></figure>
 <p>Criamos um <a href="https://www.geogebra.org/calculator/nghuzruv" target="_blank">arquivo do Geogebra</a> que facilita essa visualização e entendimento.</p>
 <hr>
-<p>GUIZAO VAI ESCREVER AS ATIVIDADES PROS 3 PONTOS</p>
-<div style="position:relative; width:fit">
-<!-- <iframe src="https://www.geogebra.org/calculator/z9zcsu6s?embed" allowfullscreen style="border: 1px solid #e4e4e4;border-radius: 4px; width:100%; height:70vh" frameborder="0"></iframe> -->
-</div>
+<h2>Três Pontos</h2>
+<p>Agora que você já entendeu a lógica para um ponto e para dois pontos, chegou a hora de adicionar o terceiro.</p>
+<p>Prepare o papel e a caneta: desenhe três pontos não alinhados — algo como um triângulo.
+A sweeping line (linha de varredura) começa acima desses pontos e começa a descer lentamente.</p>
+<p>Cada ponto vai gerar sua própria parábola, exatamente como vimos antes.</p>
+<blockquote class="question">
+<p>Pergunta</p>
+<p>Desenhe as três parábolas com a sweeping line passando logo abaixo dos pontos.
+O que você percebe?</p>
+<details class="answer">
+<summary>Resposta</summary>
+<figure class="img"><img src="img/beachline_3pts.png" alt="Beachline 3 pontos"></figure>
+<p>Perceba que cada ponto (P₁, P₂ e P₃) gera uma parábola diferente — cada uma representa todos os lugares que estão à mesma distância entre aquele ponto e a sweeping line.
+A linha roxa na base, chamada beachline, é formada pelos trechos mais baixos dessas parábolas, isto é, os pontos mais próximos da sweeping line em cada posição no eixo x.</p>
+<p>Os pontos A e B são as interseções entre as parábolas — eles marcam os limites entre as regiões de influência dos pontos.</p>
+<p>Esses pontos de interseção são o primeiro indício das arestas do Diagrama de Voronoi:
+eles mostram onde a influência de um ponto termina e a de outro começa.</p>
+</details>
+</blockquote>
+<hr>
+<h2>O Segredo das Interseções</h2>
+<p>Vamos observar com mais atenção os pontos A e B.
+Eles aparecem exatamente onde as parábolas se cruzam — onde a influência de um ponto começa a dar lugar à de outro.</p>
+<p>Esses cruzamentos não são apenas coincidências gráficas; eles têm um significado geométrico profundo.
+Para entender o que realmente está acontecendo nesses pontos, precisamos olhar para o que eles representam em termos de distância.</p>
+<blockquote class="question">
+<p>Pergunta</p>
+<p>Se um ponto está na interseção de duas parábolas, o que isso significa sobre as distâncias?</p>
+<details class="answer">
+<summary>Resposta</summary>
+<figure class="img"><img src="img/circunferencia_1.png" alt="Equidistancia de 2 Pontos"></figure>
+<p>Esse ponto está equidistante de três elementos:</p>
+<ul>
+<li>do Ponto 1,</li>
+<li>do Ponto 2,</li>
+<li>da sweeping line.</li>
+</ul>
+</details>
+</blockquote>
+<p>Agora imagine que a sweeping line continua descendo lentamente de ponto a ponto.
+Cada vez que ela se move, as parábolas mudam de forma e os pontos de interseção (como A e B) também se deslocam.</p>
+<p>Mas há um instante muito especial: o momento em que as três parábolas se encontram em um único ponto.</p>
+<blockquote class="question">
+<p>Pergunta</p>
+<p>O que isso significa?</p>
+<details class="answer">
+<summary>Resposta</summary>
+<figure class="img"><img src="img/circunferencia_2.png" alt="Equidistancia de 3 Pontos"></figure>
+<p>Nesse exato ponto, estamos à mesma distância de:</p>
+<ul>
+<li>Ponto 1</li>
+<li>Ponto 2</li>
+<li>Ponto 3</li>
+<li>e da sweeping line</li>
+</ul>
+<p>É como se o espaço “entrasse em equilíbrio” entre os três pontos — nenhum deles é mais próximo que o outro.</p>
+</details>
+</blockquote>
+<hr>
+<h2>A “Parábola Engolida”</h2>
+<p>Você já viu que, em um instante específico, as três parábolas se encontram em um mesmo ponto —
+aquele ponto que está à mesma distância dos três focos e da sweeping line.</p>
+<p>Nesse momento, algo marcante acontece:
+a parábola do ponto mais alto desaparece da beachline — ela é “engolida” pelas outras duas.</p>
+<blockquote class="question">
+<p>Pergunta</p>
+<p>O que isso significa sobre as distâncias?</p>
+<details class="answer">
+<summary>Resposta</summary>
+<p>Esse ponto está à mesma distância dos três focos e da sweeping line.
+Se registrássemos todos os pontos que mantêm essa distância constante, formaríamos um contorno fechado.</p>
+<p>Pense: qual é a forma geométrica que reúne todos os pontos que estão à mesma distância de um mesmo centro?</p>
+<figure class="img"><img src="img/circunferencia_3.png" alt="Circunferencia"></figure>
+<p>Exatamente — um círculo!</p>
+</details>
+</blockquote>
+<hr>
+<h2>O Evento de Círculo</h2>
+<p>Esse instante especial recebe o nome de evento de círculo (circle event) no algoritmo de Fortune.</p>
+<p>Ele marca o momento exato em que uma das parábolas da beachline desaparece —
+ou, como se diz, morre.
+No mesmo instante, o algoritmo registra o ponto onde isso acontece:
+o vértice de Voronoi, o local onde as três células se encontram.</p>
+<blockquote class="question">
+<p>Pergunta</p>
+<p>Tente visualizar:
+à medida que a sweeping line continua descendo, esse vértice recém-criado fica para trás, como uma marca gravada no mapa.</p>
+<p>Enquanto isso, a beachline segue viva — mudando de forma e criando novos vértices conforme mais eventos acontecem.</p>
+<details class="answer">
+<summary>Resposta</summary>
+<p>Acesse o <a href="https://www.geogebra.org/calculator/z9zcsu6s" target="_blank">arquivo do Geogebra</a> para visualizar o Evento de Círculo.</p>
+</details>
+</blockquote>
+<hr>
+<h2>Resumindo o Processo</h2>
+<ul>
+<li>Cada ponto gera uma parábola conforme a sweeping line desce.</li>
+<li>As interseções dessas parábolas formam as arestas do diagrama.</li>
+<li>Quando três parábolas se encontram e formam uma circunferência tangente à sweeping line:</li>
+<li>O ponto mais distante é “engolido” → evento de círculo;</li>
+<li>O cruzamento das três parábolas é salvo → novo vértice de Voronoi.</li>
+<li>A beachline continua viva, atualizando-se a cada novo ponto ou evento.</li>
+</ul>
 <hr>
 <h2>Complexidade</h2>
 <p>Partindo para o tema de complexidade, vamos começar pensando sobre o numero de pontos de interesse e como ele vai impactar a complexidade</p>

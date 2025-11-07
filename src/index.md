@@ -248,16 +248,164 @@ Agora que entendemos o conceito, vamos adicionar um terceiro ponto. A lógica é
 
 Criamos um [arquivo do Geogebra](https://www.geogebra.org/calculator/nghuzruv) que facilita essa visualização e entendimento.
 
+---
+
+Três Pontos
+---
+
+Agora que você já entendeu a lógica para um ponto e para dois pontos, chegou a hora de adicionar o terceiro.
+
+Prepare o papel e a caneta: desenhe três pontos não alinhados — algo como um triângulo.
+A sweeping line (linha de varredura) começa acima desses pontos e começa a descer lentamente.
+
+Cada ponto vai gerar sua própria parábola, exatamente como vimos antes.
+
+???
+
+Desenhe as três parábolas com a sweeping line passando logo abaixo dos pontos.
+O que você percebe?
+
+:::
+
+![Beachline 3 pontos](beachline_3pts.png)
+
+Perceba que cada ponto (P₁, P₂ e P₃) gera uma parábola diferente — cada uma representa todos os lugares que estão à mesma distância entre aquele ponto e a sweeping line.
+A linha roxa na base, chamada beachline, é formada pelos trechos mais baixos dessas parábolas, isto é, os pontos mais próximos da sweeping line em cada posição no eixo x.
+
+Os pontos A e B são as interseções entre as parábolas — eles marcam os limites entre as regiões de influência dos pontos.
+
+Esses pontos de interseção são o primeiro indício das arestas do Diagrama de Voronoi:
+eles mostram onde a influência de um ponto termina e a de outro começa.
+
+:::
+
+???
 
 ---
 
-GUIZAO VAI ESCREVER AS ATIVIDADES PROS 3 PONTOS
+O Segredo das Interseções
+---
 
-<div style="position:relative; width:fit">
+Vamos observar com mais atenção os pontos A e B.
+Eles aparecem exatamente onde as parábolas se cruzam — onde a influência de um ponto começa a dar lugar à de outro.
 
-<!-- <iframe src="https://www.geogebra.org/calculator/z9zcsu6s?embed" allowfullscreen style="border: 1px solid #e4e4e4;border-radius: 4px; width:100%; height:70vh" frameborder="0"></iframe> -->
 
-</div>
+Esses cruzamentos não são apenas coincidências gráficas; eles têm um significado geométrico profundo.
+Para entender o que realmente está acontecendo nesses pontos, precisamos olhar para o que eles representam em termos de distância.
+
+???
+
+Se um ponto está na interseção de duas parábolas, o que isso significa sobre as distâncias?
+
+:::
+
+![Equidistancia de 2 Pontos](circunferencia_1.png)
+
+Esse ponto está equidistante de três elementos:
+- do Ponto 1,
+- do Ponto 2,
+- da sweeping line.
+
+:::
+
+???
+
+Agora imagine que a sweeping line continua descendo lentamente de ponto a ponto.
+Cada vez que ela se move, as parábolas mudam de forma e os pontos de interseção (como A e B) também se deslocam.
+
+Mas há um instante muito especial: o momento em que as três parábolas se encontram em um único ponto.
+
+???
+
+O que isso significa?
+
+:::
+
+![Equidistancia de 3 Pontos](circunferencia_2.png)
+
+Nesse exato ponto, estamos à mesma distância de:
+
+- Ponto 1
+- Ponto 2
+- Ponto 3
+- e da sweeping line
+
+É como se o espaço “entrasse em equilíbrio” entre os três pontos — nenhum deles é mais próximo que o outro.
+
+:::
+
+???
+
+---
+
+A “Parábola Engolida”
+---
+
+Você já viu que, em um instante específico, as três parábolas se encontram em um mesmo ponto —
+aquele ponto que está à mesma distância dos três focos e da sweeping line.
+
+Nesse momento, algo marcante acontece:
+a parábola do ponto mais alto desaparece da beachline — ela é “engolida” pelas outras duas.
+
+
+???
+
+O que isso significa sobre as distâncias?
+
+:::
+
+Esse ponto está à mesma distância dos três focos e da sweeping line. 
+Se registrássemos todos os pontos que mantêm essa distância constante, formaríamos um contorno fechado.
+
+Pense: qual é a forma geométrica que reúne todos os pontos que estão à mesma distância de um mesmo centro?
+
+![Circunferencia](circunferencia_3.png)
+
+Exatamente — um círculo!
+
+:::
+
+???
+
+---
+
+O Evento de Círculo
+---
+
+Esse instante especial recebe o nome de evento de círculo (circle event) no algoritmo de Fortune.
+
+Ele marca o momento exato em que uma das parábolas da beachline desaparece —
+ou, como se diz, morre.
+No mesmo instante, o algoritmo registra o ponto onde isso acontece:
+o vértice de Voronoi, o local onde as três células se encontram.
+
+???
+
+Tente visualizar:
+à medida que a sweeping line continua descendo, esse vértice recém-criado fica para trás, como uma marca gravada no mapa.
+
+
+Enquanto isso, a beachline segue viva — mudando de forma e criando novos vértices conforme mais eventos acontecem.
+
+:::
+
+Acesse o [arquivo do Geogebra](https://www.geogebra.org/calculator/z9zcsu6s) para visualizar o Evento de Círculo.
+
+:::
+
+???
+
+---
+
+Resumindo o Processo
+---
+
+- Cada ponto gera uma parábola conforme a sweeping line desce.
+- As interseções dessas parábolas formam as arestas do diagrama.
+- Quando três parábolas se encontram e formam uma circunferência tangente à sweeping line:
+- O ponto mais distante é “engolido” → evento de círculo;
+- O cruzamento das três parábolas é salvo → novo vértice de Voronoi.
+- A beachline continua viva, atualizando-se a cada novo ponto ou evento.
 
 ---
 
