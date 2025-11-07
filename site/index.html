@@ -26,7 +26,7 @@
         <main>
 
             <h1>Algoritmo de Fortune para Diagrama de Voronoi</h1>
-<h2>Como se encontrar pela floresta</h2>
+<h2>Como se encontrar pela cidade</h2>
 <h2>Motivação</h2>
 <!-- Imagine que você é um pássaro!
 Você está voando o dia todo e não conseguiu beber nenhum gole de água. Por sorte, você sabe que ao seu redor, num raio de poucos quilômetros, existem algumas fontes de água. Aqui está o mapa da floresta: -->
@@ -217,10 +217,42 @@ Você está voando o dia todo e não conseguiu beber nenhum gole de água. Por s
 <!-- <iframe src="https://www.geogebra.org/calculator/z9zcsu6s?embed" allowfullscreen style="border: 1px solid #e4e4e4;border-radius: 4px; width:100%; height:70vh" frameborder="0"></iframe> -->
 </div>
 <hr>
-<h3>Complexidade</h3>
-<p>O algoritmo de Fortune tem complexidade O(n log n). Isso quer dizer que, conforme o número de pontos aumenta, o tempo de execução cresce um pouco mais rápido que de forma linear.
-A razão disso é que o algoritmo precisa processar os pontos em uma ordem específica, simulando a passagem da sweeping line. Cada vez que um novo evento acontece (por exemplo, quando a linha encontra um ponto ou quando duas parábolas se cruzam), o algoritmo atualiza o diagrama. O número total de atualizações é proporcional a n, já que há um evento principal para cada ponto. Essas atualizações não são instantâneas — elas exigem um pequeno custo adicional, que é o “log n” na conta.
-Em resumo: ele é rápido porque analisa cada ponto apenas quando necessário e faz atualizações de forma organizada, sem precisar recalcular todo o diagrama a cada passo.</p>
+<h2>Complexidade</h2>
+<p>Partindo para o tema de complexidade, vamos começar pensando sobre o numero de pontos de interesse e como ele vai impactar a complexidade</p>
+<blockquote class="question">
+<p>Pergunta</p>
+<p>Imagine que estamos criando um diagrama de voronoi com 5 pontos de interesse. Conforme a sweeping line desce, ela vai encontrando eventos.
+Quantos eventos principais você acha que teremos nesse caso?</p>
+<details class="answer">
+<summary>Resposta</summary>
+<p>Teremos 1 para cada ponto, entao 5 eventos principais.</p>
+</details>
+</blockquote>
+<blockquote class="question">
+<p>Pergunta</p>
+<p>E se tivessemos 10 pontos de interesse? E 20?</p>
+<details class="answer">
+<summary>Resposta</summary>
+<p>Você deve ter percebido que a quantidade de eventos principais é proporcional ao número de pontos de interesse.
+Cada ponto gera um novo evento — o algoritmo precisa lidar com todos eles, um por um.
+Isso já nos dá uma boa pista sobre a complexidade do algoritmo.</p>
+</details>
+</blockquote>
+<p>Mas sera que o algoritmo precisa se preocupar com todos os pontos a todo momento? A resposta e não! Essa e a grande diferenca do algoritmo de Fortune para os outros, ele so tem que se preocupar com os pontos vizinhos, então os pontos relativamente proximos da sweeping line</p>
+<blockquote class="question">
+<p>Pergunta</p>
+<p>Pensando então que o algoritmo so precisa se preocupar com os pontos vizinhos, o que podemos concluir sobre a complexidade do algoritmo?</p>
+<p>Dica 1: Pode ajudar pensar em um algoritmo com 3 pontos e comparar com um algoritmo com 1000. Sera que ele faz o mesmo numero de contas novas para cada ponto de interesse novo que aparece? Ou sera que não esta tudo mais pronto e determinado ja?</p>
+<p>Dica 2: Como concluimos anteriormente, a complexidade e parcialmente linear, então sabemos que é O (n * algo)</p>
+<details class="answer">
+<summary>Resposta</summary>
+<p>A complexidade e O(n logn).</p>
+<p>Podemos concluir isso pensando que, além de lidar com cada ponto uma vez (por isso o n), o algoritmo também precisa manter os eventos em ordem conforme a sweeping line desce.</p>
+<p>Mas o que significa “manter em ordem”?</p>
+<p>Significa que, a cada novo ponto ou evento de círculo, o algoritmo atualiza sua lista de eventos — inserindo ou removendo itens de forma organizada.
+Essas pequenas atualizações explicam o log n na complexidade.</p>
+</details>
+</blockquote>
 <p>Outros algoritmos para gerar diagramas de Voronoi são menos eficientes que o de Fortune.
 Um exemplo é o método direto por distância, que compara cada ponto do plano com todos os sítios e tem complexidade O(n²). Outro é o método incremental, que adiciona os pontos um a um e atualiza o diagrama a cada inserção, também com custo próximo de O(n²).
 Por isso, o algoritmo de Fortune se destaca como o mais rápido entre eles, com complexidade O(n log n).</p>
