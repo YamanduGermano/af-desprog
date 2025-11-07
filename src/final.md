@@ -189,14 +189,12 @@ Caso tenha restado alguma duvida, desenvolvemos um arquivo no geogebra que facil
 Agora nos deduzimos tudo o que deveriamos para um ponto so, e esta na hora de acrescentar um segundo ponto, ai mais pra frente um terceiro. 
 
 ---
-Vamos começar evoluindo a atividade que fizemos para um ponto, agora usando 2. Cada um vai formar a sua parabola, que vai seguir o mesmo padrão da atividade que fizemos com um ponto so. Mas agora...
+Vamos começar evoluindo a atividade que fizemos para um ponto, agora usando 2. Cada um vai formar a sua parabola, que vai seguir o mesmo padrão da atividade que fizemos com um ponto so. Mas agora vamos pensar no seguinte:
 
-
-A ADICIONAR: O QUE SIGNIFICA A INTERSECCAO ENTRE DUAS PARABOLAS ; FAZER O LEITOR PERCEBER QUE ESTA FORMANDO UMA ARESTA
 
 ???
 
-O que significa a interseção entre duas parabolas?
+O que significa a interseção entre duas parabolas (o ponto vermelho)? Pense no que falamos sobre a função da parabola. 
 
 ![Interseção 2 pontos](int_2pontos.png)
 
@@ -232,13 +230,13 @@ Então conforme a sweeping line desce, o algoritmo esta traçando a aresta que d
 
 ???
 
-Então sabendo isso e o que falamos anteriormente sobre o diagrama de Voronoi, o que conseguimos deduzir sobre pontos que de um lado da linha e do outro? O que todos tem em comum com quais respectivos pontos de interesse?
+Então sabendo isso e o que falamos anteriormente sobre o diagrama de Voronoi, o que conseguimos deduzir sobre pontos que estão de um lado da linha e do outro? O que todos tem em comum com quais respectivos pontos de interesse?
 
 Dica: Pense na distancia
 
 :::
 
-Conseguimos concluir que pontos de cada lado da linha estao mais proximos do ponto de interesse que esta do mesmo lado da linha
+Conseguimos concluir que pontos de cada lado da linha estao mais proximos do ponto de interesse que esta do mesmo lado
 
 ???
 
@@ -408,7 +406,7 @@ Mas sera que o algoritmo precisa se preocupar com todos os pontos a todo momento
 
 Pensando então que o algoritmo so precisa se preocupar com os pontos vizinhos, o que podemos concluir sobre a complexidade do algoritmo?
 
-Dica 1: Ajuda a pensar em u algoritmo com 2 pontos e comparar com um algoritmo com 1000. Sera que ele faz o mesmo numero de contas novas para cada ponto de interesse novo que aparece?
+Dica 1: Pode ajudar pensar em um algoritmo com 3 pontos e comparar com um algoritmo com 1000. Sera que ele faz o mesmo numero de contas novas para cada ponto de interesse novo que aparece? Ou sera que não esta tudo mais pronto e determinado ja?
 
 Dica 2: Como concluimos anteriormente, a complexidade e parcialmente linear, então sabemos que é O (n * algo)
 
