@@ -175,27 +175,37 @@ Você está voando o dia todo e não conseguiu beber nenhum gole de água. Por s
 </div>
 <p>Agora nos deduzimos tudo o que deveriamos para um ponto so, e esta na hora de acrescentar um segundo ponto, ai mais pra frente um terceiro.</p>
 <hr>
-<p>Vamos começar evoluindo a atividade que fizemos para um ponto, agora usando 2. Cada um vai formar a sua parabola, que vai seguir o mesmo padrão da atividade que fizemos com um ponto so. Mas agora…</p>
+<p>Vamos começar evoluindo a atividade que fizemos para um ponto, agora usando 2. Cada um vai formar a sua parabola, que vai seguir o mesmo padrão da atividade que fizemos com um ponto so. Mas agora vamos pensar no seguinte:</p>
 <blockquote class="question">
 <p>Pergunta</p>
-<p>Vamos pensar agora sobre a interseção dessas parabolas.
-Desenvolvemos um arquivo no GeoGebra que vai ajudar bastante a tirar essa conclusão. Tente encontrar o tipo de relação entre os pontos de interseção com a sweeping line variando.</p>
-<p>Vai ser uma relação linear? Quadratica? Logaritmica?</p>
+<p>O que significa a interseção entre duas parabolas (o ponto vermelho)? Pense no que falamos sobre a função da parabola.</p>
+<figure class="img"><img src="img/int_2pontos.png" alt="Interseção 2 pontos"></figure>
+<details class="answer">
+<summary>Resposta</summary>
+<p>A interseção entre duas parabolas representa um ponto de equidistancia entre as duas parabolas e a sweeping line</p>
+</details>
+</blockquote>
+<blockquote class="question">
+<p>Pergunta</p>
+<p>Sabendo disso, imagine a sweeping line descendo em relação a sua posição anterior. Imagine o que pode estar acontecendo com os pontos de interseção.</p>
+<p>Desenvolvemos um arquivo no GeoGebra que vai ajudar bastante a tirar essa conclusão. Tente encontrar o tipo de relação entre os pontos de interseção com a sweeping line variando.</p>
 <div style="position:relative; width:fit">
 <iframe src="https://www.geogebra.org/calculator/vkarzdzv?embed" allowfullscreen="" style="border: 1px solid #e4e4e4;border-radius: 4px; width:100%; height:70vh" frameborder="0"></iframe>
 </div>
 <details class="answer">
 <summary>Resposta</summary>
 <p>Para obter a resposta, ativar o trace do ponto de interseção.</p>
+<p>Voce deve ter concluido que os pontos tem uma relação linear uns com os outros. Essa linha que esta sendo formada e justamente uma das arestas do diagrama de Voronoi.
+Então conforme a sweeping line desce, o algoritmo esta traçando a aresta que divide os dois pontos no diagrama</p>
 </details>
 </blockquote>
 <blockquote class="question">
 <p>Pergunta</p>
-<p>Sabendo isso, O que conseguimos deduzir sobre pontos que para um lado da linha e para o outro? O que todos tem em comum com quais respectivos pontos de interesse?</p>
+<p>Então sabendo isso e o que falamos anteriormente sobre o diagrama de Voronoi, o que conseguimos deduzir sobre pontos que estão de um lado da linha e do outro? O que todos tem em comum com quais respectivos pontos de interesse?</p>
 <p>Dica: Pense na distancia</p>
 <details class="answer">
 <summary>Resposta</summary>
-<p>Conseguimos concluir que pontos de cada lado da linha estao mais proximos do ponto de interesse que esta do mesmo lado da linha</p>
+<p>Conseguimos concluir que pontos de cada lado da linha estao mais proximos do ponto de interesse que esta do mesmo lado</p>
 </details>
 </blockquote>
 <p>Parabens, voce acabou de entender a logica por traz de um algoritmo de Fortune para 2 pontos em um grafico!</p>
@@ -292,10 +302,41 @@ enquanto a beachline continua se deformando abaixo.</p>
 </ul>
 <hr>
 <h2>Complexidade</h2>
-<p>O algoritmo de Fortune tem complexidade O(n log n). Isso quer dizer que, conforme o número de pontos aumenta, o tempo de execução cresce um pouco mais rápido que de forma linear.
-A razão disso é que o algoritmo precisa processar os pontos em uma ordem específica, simulando a passagem da sweeping line. Cada vez que um novo evento acontece (por exemplo, quando a linha encontra um ponto ou quando duas parábolas se cruzam), o algoritmo atualiza o diagrama.</p>
-<p>O número total de atualizações é proporcional a n, já que há um evento principal para cada ponto. Essas atualizações não são instantâneas — elas exigem um pequeno custo adicional, que é o “log n” na conta.
-Em resumo: ele é rápido porque analisa cada ponto apenas quando necessário e faz atualizações de forma organizada, sem precisar recalcular todo o diagrama a cada passo.</p>
+<p>Partindo para o tema de complexidade, vamos começar pensando sobre o numero de pontos de interesse e como ele vai impactar a complexidade</p>
+<blockquote class="question">
+<p>Pergunta</p>
+<p>Imagine que estamos criando um diagrama de voronoi com 5 pontos de interesse. Conforme a sweeping line desce, ela vai encontrando eventos.
+Quantos eventos principais você acha que teremos nesse caso?</p>
+<details class="answer">
+<summary>Resposta</summary>
+<p>Teremos 1 para cada ponto, entao 5 eventos principais.</p>
+</details>
+</blockquote>
+<blockquote class="question">
+<p>Pergunta</p>
+<p>E se tivessemos 10 pontos de interesse? E 20?</p>
+<details class="answer">
+<summary>Resposta</summary>
+<p>Você deve ter percebido que a quantidade de eventos principais é proporcional ao número de pontos de interesse.
+Cada ponto gera um novo evento — o algoritmo precisa lidar com todos eles, um por um.
+Isso já nos dá uma boa pista sobre a complexidade do algoritmo.</p>
+</details>
+</blockquote>
+<p>Mas sera que o algoritmo precisa se preocupar com todos os pontos a todo momento? A resposta e não! Essa e a grande diferenca do algoritmo de Fortune para os outros, ele so tem que se preocupar com os pontos vizinhos, então os pontos relativamente proximos da sweeping line</p>
+<blockquote class="question">
+<p>Pergunta</p>
+<p>Pensando então que o algoritmo so precisa se preocupar com os pontos vizinhos, o que podemos concluir sobre a complexidade do algoritmo?</p>
+<p>Dica 1: Pode ajudar pensar em um algoritmo com 3 pontos e comparar com um algoritmo com 1000. Sera que ele faz o mesmo numero de contas novas para cada ponto de interesse novo que aparece? Ou sera que não esta tudo mais pronto e determinado ja?</p>
+<p>Dica 2: Como concluimos anteriormente, a complexidade e parcialmente linear, então sabemos que é O (n * algo)</p>
+<details class="answer">
+<summary>Resposta</summary>
+<p>A complexidade e O(n logn).</p>
+<p>Podemos concluir isso pensando que, além de lidar com cada ponto uma vez (por isso o n), o algoritmo também precisa manter os eventos em ordem conforme a sweeping line desce.</p>
+<p>Mas o que significa “manter em ordem”?</p>
+<p>Significa que, a cada novo ponto ou evento de círculo, o algoritmo atualiza sua lista de eventos — inserindo ou removendo itens de forma organizada.
+Essas pequenas atualizações explicam o log n na complexidade.</p>
+</details>
+</blockquote>
 <p>Outros algoritmos para gerar diagramas de Voronoi são menos eficientes que o de Fortune.
 Um exemplo é o método direto por distância, que compara cada ponto do plano com todos os sítios e tem complexidade O(n²). Outro é o método incremental, que adiciona os pontos um a um e atualiza o diagrama a cada inserção, também com custo próximo de O(n²).
 Por isso, o algoritmo de Fortune se destaca como o mais rápido entre eles, com complexidade O(n log n).</p>
