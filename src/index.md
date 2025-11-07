@@ -34,15 +34,15 @@ Método das distâncias:
 
 O arquivo `md dist_m1.py` calcula todas essas distâncias e imprime seus valores:
 
-|Lugar        | Distância |
-| ----------- | --------- |
-|Queda d'água | 1.12 km   |
-|Riacho       | 2.92 km   |
-|Pedra do sapo| 1.80 km   |
-|Córrego azul | 2.24 km   |
-|Rio Branco   | 2.24 km   |
-|Pedra molhada| 2.12 km   |
-|Lagoa doce   | 2.55 km   |
+| Lugar    | Distância |
+| -------- | --------- |
+| Antena 2 | 1.12 km   |
+| Antena 1 | 2.92 km   |
+| Antena 3 | 1.80 km   |
+| Antena 4 | 2.24 km   |
+| Antena 7 | 2.24 km   |
+| Antena 6 | 2.12 km   |
+| Antena 5 | 2.55 km   |
 
 A antena mais próxima seria a **Queda d'água** com **1.12km** de distância
 
@@ -406,6 +406,18 @@ Resumindo o Processo
 - O ponto mais distante é “engolido” → evento de círculo;
 - O cruzamento das três parábolas é salvo → novo vértice de Voronoi.
 - A beachline continua viva, atualizando-se a cada novo ponto ou evento.
+
+
+---
+Discretização
+
+!!! Cuidado!
+Apesar de ser intuitivo imaginar que a sweeping line desce pouco a pouco e isso é calculado, na realidade isso não ocorre.
+!!!
+
+Na implementação prática, não simulamos a linha movendo-se continuamente. Em vez disso, discretizamos o movimento em eventos — instantes relevantes em que algo muda na beachline. Se fossemos calcular a beachline para cada ponto, teríamos infinitos pontos, o que seria impossível de calcular.
+
+Desse jeito, precisamos fetuar cálculos apenas para cada ponto no mapa e para cada _circle event_.
 
 ---
 
