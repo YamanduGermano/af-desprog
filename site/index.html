@@ -82,11 +82,11 @@ Você está voando o dia todo e não conseguiu beber nenhum gole de água. Por s
 </table></figure>
 <p>A antena mais próxima seria a <strong>Queda d’água</strong> com <strong>1.12km</strong> de distância</p>
 <p>É notável que essa tarefa não é muito eficiente. E, se saíssemos da mesma posição, precisaríamos calcular todas as distâncias novamente.</p>
-<p>E se existisse um mapa que indique, para qualquer posição, qual a fonte d’água mais próxima?</p>
+<p>E se existisse um mapa que indique, para qualquer posição, qual a antena mais próxima?</p>
 <h2>Subdivisão por células</h2>
-<p>Vamos começar por um exemplo simples. Temos apenas duas fontes d’água no nosso mapa:</p>
+<p>Vamos começar por um exemplo simples. Temos apenas duas antenas no nosso mapa:</p>
 <figure class="img"><img src="img/mapa3.jpg" alt="Duas antenas no mapa"></figure>
-<p>Como podemos dividir esse espaço de modo a indicar, para qualquer ponto no mapa, qual a fonte mais próxima?</p>
+<p>Como podemos dividir esse espaço de modo a indicar, para qualquer ponto no mapa, qual a antena mais próxima?</p>
 <blockquote class="question">
 <p>Pergunta</p>
 <p>Pegue um papel e uma caneta e tente desenhar esse diagrama!</p>
@@ -94,7 +94,7 @@ Você está voando o dia todo e não conseguiu beber nenhum gole de água. Por s
 <summary>Resposta</summary>
 <p>Vamos traçar uma aresta que passa entre ambas as fontes e pintar de azul todos os pontos em que estão à esquerda dela e de verde aqueles que estão a sua direita:</p>
 <figure class="img"><img src="img/mapa4.jpg" alt="Subdivisão do mapa em duas células"></figure>
-<p>Agora, sabemos que, se você estiver em qualquer ponto azul, o ponto mais próximo é a <code class="language-md">Fonte A</code>. Se você estiver em qualquer ponto verde, porém, o ponto mais próximo é a <code class="language-md">Fonte B</code>.</p>
+<p>Agora, sabemos que, se você estiver em qualquer ponto azul, o ponto mais próximo é a <code class="language-md">Antena A</code>. Se você estiver em qualquer ponto verde, porém, o ponto mais próximo é a <code class="language-md">Antena B</code>.</p>
 </details>
 </blockquote>
 <p>Esse princípio</p>
@@ -105,7 +105,7 @@ Você está voando o dia todo e não conseguiu beber nenhum gole de água. Por s
 <p>Pegue um papel e uma caneta e tente desenhar esse diagrama!</p>
 <details class="answer">
 <summary>Resposta</summary>
-<p>Se traçarmos uma reta que divide cada um dos pontos d’água entre si, podemos criar três arestas que subdividem o espaço em três células distintas.</p>
+<p>Se traçarmos uma reta que divide cada um das antenas entre si, podemos criar três arestas que subdividem o espaço em três células distintas.</p>
 <figure class="img"><img src="img/mapa6.jpg" alt="Três células no mapa"></figure>
 <!-- Se ligarmos uma reta ligando dois pontos quaisquer e traçarmos outra reta perpendicular a ela que cruza o seu centro, conseguimos subdividir o espaço com três arestas. -->
 <p><strong>Observe atentamente esse diagrama e preste atenção nos detalhes:</strong></p>

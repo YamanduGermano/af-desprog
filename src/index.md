@@ -49,16 +49,16 @@ A antena mais próxima seria a **Queda d'água** com **1.12km** de distância
 
 É notável que essa tarefa não é muito eficiente. E, se saíssemos da mesma posição, precisaríamos calcular todas as distâncias novamente.
 
-E se existisse um mapa que indique, para qualquer posição, qual a fonte d'água mais próxima?
+E se existisse um mapa que indique, para qualquer posição, qual a antena mais próxima?
 
 Subdivisão por células
 ---
 
-Vamos começar por um exemplo simples. Temos apenas duas fontes d'água no nosso mapa:
+Vamos começar por um exemplo simples. Temos apenas duas antenas no nosso mapa:
 
 ![Duas antenas no mapa](mapa3.jpg)
 
-Como podemos dividir esse espaço de modo a indicar, para qualquer ponto no mapa, qual a fonte mais próxima?
+Como podemos dividir esse espaço de modo a indicar, para qualquer ponto no mapa, qual a antena mais próxima?
 
 ???
 
@@ -70,7 +70,7 @@ Vamos traçar uma aresta que passa entre ambas as fontes e pintar de azul todos 
 
 ![Subdivisão do mapa em duas células](mapa4.jpg)
 
-Agora, sabemos que, se você estiver em qualquer ponto azul, o ponto mais próximo é a `md Fonte A`. Se você estiver em qualquer ponto verde, porém, o ponto mais próximo é a `md Fonte B`.
+Agora, sabemos que, se você estiver em qualquer ponto azul, o ponto mais próximo é a `md Antena A`. Se você estiver em qualquer ponto verde, porém, o ponto mais próximo é a `md Antena B`.
 :::
 
 ???
@@ -86,7 +86,7 @@ Pegue um papel e uma caneta e tente desenhar esse diagrama!
 
 :::
 
-Se traçarmos uma reta que divide cada um dos pontos d'água entre si, podemos criar três arestas que subdividem o espaço em três células distintas.
+Se traçarmos uma reta que divide cada um das antenas entre si, podemos criar três arestas que subdividem o espaço em três células distintas.
 
 ![Três células no mapa](mapa6.jpg)
 
