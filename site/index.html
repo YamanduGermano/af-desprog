@@ -41,7 +41,6 @@ Você está voando o dia todo e não conseguiu beber nenhum gole de água. Por s
 <h2>Método das distâncias:</h2>
 <figure class="img"><img src="img/mapa2.jpg" alt="Mapa da cidade com coordenadas"></figure>
 <p>É possível calcular todas as distâncias entre os você e cada um dos pontos utilizando o teorema de pitágoras.</p>
-<p>O arquivo <code class="language-md">dist_m1.py</code> calcula todas essas distâncias e imprime seus valores:</p>
 <figure class="table"><table>
 <thead>
 <tr>
@@ -51,36 +50,36 @@ Você está voando o dia todo e não conseguiu beber nenhum gole de água. Por s
 </thead>
 <tbody>
 <tr>
-<td>Queda d’água</td>
+<td>Antena 2</td>
 <td>1.12 km</td>
 </tr>
 <tr>
-<td>Riacho</td>
+<td>Antena 1</td>
 <td>2.92 km</td>
 </tr>
 <tr>
-<td>Pedra do sapo</td>
+<td>Antena 3</td>
 <td>1.80 km</td>
 </tr>
 <tr>
-<td>Córrego azul</td>
+<td>Antena 4</td>
 <td>2.24 km</td>
 </tr>
 <tr>
-<td>Rio Branco</td>
+<td>Antena 7</td>
 <td>2.24 km</td>
 </tr>
 <tr>
-<td>Pedra molhada</td>
+<td>Antena 6</td>
 <td>2.12 km</td>
 </tr>
 <tr>
-<td>Lagoa doce</td>
+<td>Antena 5</td>
 <td>2.55 km</td>
 </tr>
 </tbody>
 </table></figure>
-<p>A antena mais próxima seria a <strong>Queda d’água</strong> com <strong>1.12km</strong> de distância</p>
+<p>A antena mais próxima seria a <strong>Antena 2</strong> com <strong>1.12km</strong> de distância</p>
 <p>É notável que essa tarefa não é muito eficiente. E, se saíssemos da mesma posição, precisaríamos calcular todas as distâncias novamente.</p>
 <p>E se existisse um mapa que indique, para qualquer posição, qual a antena mais próxima?</p>
 <h2>Subdivisão por células</h2>
@@ -120,7 +119,7 @@ Você está voando o dia todo e não conseguiu beber nenhum gole de água. Por s
 <p>Uma aresta sempre <strong>divide ao meio</strong> uma reta que liga dois pontos.</p>
 </li>
 </ul>
-<p>Assim, é muito mais fácil ver qual o ponto d’água mais próximo para qualquer ponto do mapa!</p>
+<p>Assim, é muito mais fácil ver qual a antena mais próxima para qualquer ponto do mapa!</p>
 </details>
 </blockquote>
 <h2>Diagrama de Voronoi:</h2>
@@ -315,6 +314,14 @@ o vértice de Voronoi, o local onde as três células se encontram.</p>
 <li>O cruzamento das três parábolas é salvo → novo vértice de Voronoi.</li>
 <li>A beachline continua viva, atualizando-se a cada novo ponto ou evento.</li>
 </ul>
+<hr>
+<p>Discretização</p>
+<blockquote class="warning">
+<p>Cuidado!</p>
+<p>Apesar de ser intuitivo imaginar que a sweeping line desce pouco a pouco e isso é calculado, na realidade isso não ocorre.</p>
+</blockquote>
+<p>Na implementação prática, não simulamos a linha movendo-se continuamente. Em vez disso, discretizamos o movimento em eventos — instantes relevantes em que algo muda na beachline. Se fossemos calcular a beachline para cada ponto, teríamos infinitos pontos, o que seria impossível de calcular.</p>
+<p>Desse jeito, precisamos fetuar cálculos apenas para cada ponto no mapa e para cada <em>circle event</em>.</p>
 <hr>
 <h2>Complexidade</h2>
 <p>Partindo para o tema de complexidade, vamos começar pensando sobre o numero de pontos de interesse e como ele vai impactar a complexidade</p>

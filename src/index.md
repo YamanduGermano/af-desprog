@@ -32,8 +32,6 @@ Método das distâncias:
 
 É possível calcular todas as distâncias entre os você e cada um dos pontos utilizando o teorema de pitágoras.
 
-O arquivo `md dist_m1.py` calcula todas essas distâncias e imprime seus valores:
-
 | Lugar    | Distância |
 | -------- | --------- |
 | Antena 2 | 1.12 km   |
@@ -44,7 +42,7 @@ O arquivo `md dist_m1.py` calcula todas essas distâncias e imprime seus valores
 | Antena 6 | 2.12 km   |
 | Antena 5 | 2.55 km   |
 
-A antena mais próxima seria a **Queda d'água** com **1.12km** de distância
+A antena mais próxima seria a **Antena 2** com **1.12km** de distância
 
 
 É notável que essa tarefa não é muito eficiente. E, se saíssemos da mesma posição, precisaríamos calcular todas as distâncias novamente.
@@ -100,7 +98,7 @@ Se traçarmos uma reta que divide cada um das antenas entre si, podemos criar tr
 
 - Uma aresta sempre **divide ao meio** uma reta que liga dois pontos.
 
-Assim, é muito mais fácil ver qual o ponto d'água mais próximo para qualquer ponto do mapa!
+Assim, é muito mais fácil ver qual a antena mais próxima para qualquer ponto do mapa!
 
 :::
 ???

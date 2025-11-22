@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>matematemagica.js Teste</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js"></script>
+    <script>
+        window.onload = function(){
+            // As soon as DOM content is loaded initialize class and have class parse through DOM     
+            const matemagica = new Matemagica("matemagica");
+            matemagica.start_rendering()
+            // console.log(matemagica.ctx)
+            console.log("Iniciando Matemagica!")
+        };
+
+        // handle_click = async () =>{
+        //     // const matemagica = await new Matemagica("matemagica");
+        //     porra.init_rendering()
+        //     console.log("cu")
+        // }
+    </script>
+
+</head>
+<body>
+    <main id="content">
+        <script>
+        </script>
+        <button onclick="{handle_click()}">Caralho</button>
+        <canvas id="matemagica"></canvas>
+    </main>
+</body>
+</html>
