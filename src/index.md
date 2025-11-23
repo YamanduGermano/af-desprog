@@ -1,14 +1,12 @@
 Algoritmo de Fortune para Diagrama de Voronoi
 ===
 
-Como se encontrar pela cidade
 ---
 
 
 ## Motivação
 
-<!-- Imagine que você é um pássaro!
-Você está voando o dia todo e não conseguiu beber nenhum gole de água. Por sorte, você sabe que ao seu redor, num raio de poucos quilômetros, existem algumas fontes de água. Aqui está o mapa da floresta: -->
+_Como se encontrar pela cidade_
 
 Imagine uma atividade rotineira como fazer uma **ligação de vídeo** para uma pessoa muito especial (para merecer uma ligação de vídeo, precisa ser especial mesmo). Nesse contexto, uma prioridade é enviar e receber informações com a **menor latência** possível.
 
@@ -58,6 +56,8 @@ Vamos começar por um exemplo simples. Temos apenas duas antenas no nosso mapa:
 
 Como podemos dividir esse espaço de modo a indicar, para qualquer ponto no mapa, qual a antena mais próxima?
 
+<span id="2pontos"></span>
+
 ???
 
 Pegue um papel e uma caneta e tente desenhar esse diagrama!
@@ -73,7 +73,6 @@ Agora, sabemos que, se você estiver em qualquer ponto azul, o ponto mais próxi
 
 ???
 
-Esse princípio
 
 Agora vamos tentar com três pontos:
 
@@ -169,36 +168,49 @@ A parabola vai abrir cada vez mais quando a sweeping line desce.
 
 Caso tenha restado alguma duvida, desenvolvemos um [arquivo no Geogebra](https://www.geogebra.org/calculator/xztbxdvv?) que facilita muito o entendimento:
 
-<div style="position:relative; width:fit">
 
-<!-- <iframe src="https://www.geogebra.org/calculator/xztbxdvv?embed" allowfullscreen style="border: 1px solid #e4e4e4;border-radius: 4px; width:100%; height:70vh" frameborder="0"></iframe> -->
+Agora vamos dar uma pausa antes de prosseguir. É importante que fique bem claro o significado dessa parábola no nosso problema.
 
-</div>
+Antes, com [2 pontos](./#2pontos) no gráfico, podiamos subdividir a imagem em duas regiões com uma linha reta. O ponto que estivesse dentro da região _azul_ estaria dentro da **região de controle** da `md Antena A`, ou seja, está mais próximo da dela do que a `md Antena B`,
 
-Agora que nós deduzimos o comportamento do gráfico para um ponto so, está na hora de acrescentar um segundo ponto.
+![Divisão do espaço em duas áreas pela parábola](mapa11.jpg)
 
+Aqui, nós também estamos subdividindo nosso espaço entre os pontos mais próximos do `md Ponto 1` (em azul) e os mais próximos da `md Sweeping Line` ou de qualquer ponto abaixo dela (em verde).
+
+Os pontos que estão equidistantes do ponto e da Sweeping Line (nossa parábola) delimitam essas duas áreas. Prossiga apenas quando tiver certeza que entendeu o motivo e significado da parábola.
 
 ---
 
-Agora com dois pontos, desenharemos sua parábola para cada um deles seguindo o mesmo procedimento da etapa anterior. Nosso foco cairá sobre a interseção entre essas parabolas:
+Agora que nós deduzimos o comportamento do gráfico para um ponto só, está na hora de acrescentar um segundo ponto. Para cada um deles desenharemos sua parábola seguindo o mesmo procedimento da etapa anterior. Nosso foco cairá sobre a **interseção** entre essas parabolas:
 
-![Duas parábolas](mapa11.jpg)
+![Duas parábolas](mapa12.jpg)
 
 ???
 Antes de continuar, tente refletir sobre o que esse ponto de interseção significa. Utilizando o conhecimento de como os pontos da parábola são formados.
 
 :::
 
+![Pontos equidistantes](mapa13.jpg)
+
 Se a parábola é formada pelos pontos que são equidistantes entre o ponto de interesse e a sweeping line, o ponto de interseção entre duas parábolas equidistante para ambas.
-![Pontos equidistantes](mapa12.jpg)
+
+![Pontos equidistantes](mapa14.jpg)
+
+Para os pontos acima das parábolas, aqueles à esquerda do ponto de intersecção na área _azul_ estão mais próximos do `md Ponto 1` enquanto aqueles à direita na área _verde_ estão mais próximos do `md Ponto 2`.
+
 
 :::
 ???
 
+!!!
+
+Ainda não podemos afirmar com certeza a quem pertence a região formada pelos segumentos das interseções entre as duas parábolas. Por que isso?
+
+!!!
 
 ???
 
-Sabendo disso, imagine a sweeping line descendo em relação a sua posição anterior. Imagine o que pode estar acontecendo com os pontos de interseção. 
+Imagine a sweeping line descendo em relação a sua posição anterior. Imagine o que pode estar acontecendo com os pontos de interseção. 
 
 
 Desenvolvemos um [arquivo do Geogebra](https://www.geogebra.org/calculator/vkarzdzv) que vai ajudar bastante a tirar essa conclusão. Tente encontrar o tipo de relação entre os pontos de interseção com variação da sweeping line.
@@ -207,10 +219,18 @@ Desenvolvemos um [arquivo do Geogebra](https://www.geogebra.org/calculator/vkarz
 !!! Dica:
 Para obter a resposta, ativar o trace do ponto de interseção.
 
+!!!
+
+:::
+
 Você deve ter concluido que os pontos tem uma relação linear uns com os outros. Essa linha que está sendo formada é justamente uma das arestas do diagrama de Voronoi.
 
 Então, conforme a sweeping line desce, o algoritmo está traçando a aresta que divide os dois pontos no diagrama
-!!!
+
+![Aresta sendo criada entre pelos pontos de interseção](mapa15.jpg)
+
+
+:::
 
 ???
 
@@ -226,6 +246,8 @@ Pense na distancia
 
 Conseguimos concluir que um ponto qualquer de um dos lados da linha está mais próximo do ponto de interesse que está do mesmo lado do que do outro ponto de interesse.
 
+![Pontos equidistantes](mapa16.jpg)
+
 ???
 
 Parabens, você acabou de entender a lógica por trás de um algoritmo de Fortune para 2 pontos em um grafico!
@@ -238,11 +260,11 @@ Como no início do handout, pense nos pontos equidistantes entre um ponto e a sw
 
 Aqui esta uma imagem que nos ajuda a visualizar isso. 
 
-![Beachline com 4 pontos](mapa13.jpg)
+![Beachline com 2 pontos](mapa17.jpg)
 
-Agora que entendemos o conceito, vamos adicionar um terceiro ponto. A lógica é a mesma para 4, 5 ou mais pontos, então, ao compreendermos o caso com 3, poderemos generalizar para qualquer quantidade.
+Agora que entendemos o conceito, vamos adicionar um terceiro ponto. A lógica é a mesma para 3, 5 ou mais pontos, então, ao compreendermos o caso com 3, poderemos generalizar para qualquer quantidade.
 
-![Beachline com 4 pontos](mapa14.jpg)
+![Beachline com 3 pontos](mapa18.jpg)
 
 Criamos um [arquivo do Geogebra](https://www.geogebra.org/calculator/nghuzruv) que facilita essa visualização e entendimento.
 

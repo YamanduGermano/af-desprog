@@ -26,10 +26,9 @@
         <main>
 
             <h1>Algoritmo de Fortune para Diagrama de Voronoi</h1>
-<h2>Como se encontrar pela cidade</h2>
+<hr>
 <h2>Motivação</h2>
-<!-- Imagine que você é um pássaro!
-Você está voando o dia todo e não conseguiu beber nenhum gole de água. Por sorte, você sabe que ao seu redor, num raio de poucos quilômetros, existem algumas fontes de água. Aqui está o mapa da floresta: -->
+<p><em>Como se encontrar pela cidade</em></p>
 <p>Imagine uma atividade rotineira como fazer uma <strong>ligação de vídeo</strong> para uma pessoa muito especial (para merecer uma ligação de vídeo, precisa ser especial mesmo). Nesse contexto, uma prioridade é enviar e receber informações com a <strong>menor latência</strong> possível.</p>
 <p>Ao seu redor, existem várias antenas de comunicação para as quais podemos mandar um sinal. Esse sinal vai ser retransmitido por vários pontos ao longo da infraestrutura global de comunicação até chegar no seu destino. A fim de <em>minimizar a latência</em> e aumentar a chance do sinal ser recebido sem perdas, seu celular enviar o sinal para a <strong>antena mais próxima</strong>.</p>
 <p>Seu celular sabe sua posição no mapa e a posição das antenas ao seu redor:</p>
@@ -86,6 +85,7 @@ Você está voando o dia todo e não conseguiu beber nenhum gole de água. Por s
 <p>Vamos começar por um exemplo simples. Temos apenas duas antenas no nosso mapa:</p>
 <figure class="img"><img src="img/mapa3.jpg" alt="Duas antenas no mapa"></figure>
 <p>Como podemos dividir esse espaço de modo a indicar, para qualquer ponto no mapa, qual a antena mais próxima?</p>
+<p><span id="2pontos"></span></p>
 <blockquote class="question">
 <p>Pergunta</p>
 <p>Pegue um papel e uma caneta e tente desenhar esse diagrama!</p>
@@ -96,7 +96,6 @@ Você está voando o dia todo e não conseguiu beber nenhum gole de água. Por s
 <p>Agora, sabemos que, se você estiver em qualquer ponto azul, o ponto mais próximo é a <code class="language-md">Antena A</code>. Se você estiver em qualquer ponto verde, porém, o ponto mais próximo é a <code class="language-md">Antena B</code>.</p>
 </details>
 </blockquote>
-<p>Esse princípio</p>
 <p>Agora vamos tentar com três pontos:</p>
 <figure class="img"><img src="img/mapa5.jpg" alt="Três antenas no mapa"></figure>
 <blockquote class="question">
@@ -163,31 +162,43 @@ Você está voando o dia todo e não conseguiu beber nenhum gole de água. Por s
 </details>
 </blockquote>
 <p>Caso tenha restado alguma duvida, desenvolvemos um <a href="https://www.geogebra.org/calculator/xztbxdvv?" target="_blank">arquivo no Geogebra</a> que facilita muito o entendimento:</p>
-<div style="position:relative; width:fit">
-<!-- <iframe src="https://www.geogebra.org/calculator/xztbxdvv?embed" allowfullscreen style="border: 1px solid #e4e4e4;border-radius: 4px; width:100%; height:70vh" frameborder="0"></iframe> -->
-</div>
-<p>Agora que nós deduzimos o comportamento do gráfico para um ponto so, está na hora de acrescentar um segundo ponto.</p>
+<p>Agora vamos dar uma pausa antes de prosseguir. É importante que fique bem claro o significado dessa parábola no nosso problema.</p>
+<p>Antes, com <a href="./#2pontos">2 pontos</a> no gráfico, podiamos subdividir a imagem em duas regiões com uma linha reta. O ponto que estivesse dentro da região <em>azul</em> estaria dentro da <strong>região de controle</strong> da <code class="language-md">Antena A</code>, ou seja, está mais próximo da dela do que a <code class="language-md">Antena B</code>,</p>
+<figure class="img"><img src="img/mapa11.jpg" alt="Divisão do espaço em duas áreas pela parábola"></figure>
+<p>Aqui, nós também estamos subdividindo nosso espaço entre os pontos mais próximos do <code class="language-md">Ponto 1</code> (em azul) e os mais próximos da <code class="language-md">Sweeping Line</code> ou de qualquer ponto abaixo dela (em verde).</p>
+<p>Os pontos que estão equidistantes do ponto e da Sweeping Line (nossa parábola) delimitam essas duas áreas. Prossiga apenas quando tiver certeza que entendeu o motivo e significado da parábola.</p>
 <hr>
-<p>Agora com dois pontos, desenharemos sua parábola para cada um deles seguindo o mesmo procedimento da etapa anterior. Nosso foco cairá sobre a interseção entre essas parabolas:</p>
-<figure class="img"><img src="img/mapa11.jpg" alt="Duas parábolas"></figure>
+<p>Agora que nós deduzimos o comportamento do gráfico para um ponto só, está na hora de acrescentar um segundo ponto. Para cada um deles desenharemos sua parábola seguindo o mesmo procedimento da etapa anterior. Nosso foco cairá sobre a <strong>interseção</strong> entre essas parabolas:</p>
+<figure class="img"><img src="img/mapa12.jpg" alt="Duas parábolas"></figure>
 <blockquote class="question">
 <p>Pergunta</p>
 <p>Antes de continuar, tente refletir sobre o que esse ponto de interseção significa. Utilizando o conhecimento de como os pontos da parábola são formados.</p>
 <details class="answer">
 <summary>Resposta</summary>
-<figure class="img"><img src="img/mapa12.jpg" alt="Pontos equidistantes"></figure>
+<figure class="img"><img src="img/mapa13.jpg" alt="Pontos equidistantes"></figure>
+<p>Se a parábola é formada pelos pontos que são equidistantes entre o ponto de interesse e a sweeping line, o ponto de interseção entre duas parábolas equidistante para ambas.</p>
+<figure class="img"><img src="img/mapa14.jpg" alt="Pontos equidistantes"></figure>
+<p>Para os pontos acima das parábolas, aqueles à esquerda do ponto de intersecção na área <em>azul</em> estão mais próximos do <code class="language-md">Ponto 1</code> enquanto aqueles à direita na área <em>verde</em> estão mais próximos do <code class="language-md">Ponto 2</code>.</p>
 </details>
+</blockquote>
+<blockquote class="warning">
+<p>Aviso</p>
+<p>Ainda não podemos afirmar com certeza a quem pertence a região formada pelos segumentos das interseções entre as duas parábolas. Por que isso?</p>
 </blockquote>
 <blockquote class="question">
 <p>Pergunta</p>
-<p>Sabendo disso, imagine a sweeping line descendo em relação a sua posição anterior. Imagine o que pode estar acontecendo com os pontos de interseção.</p>
+<p>Imagine a sweeping line descendo em relação a sua posição anterior. Imagine o que pode estar acontecendo com os pontos de interseção.</p>
 <p>Desenvolvemos um <a href="https://www.geogebra.org/calculator/vkarzdzv" target="_blank">arquivo do Geogebra</a> que vai ajudar bastante a tirar essa conclusão. Tente encontrar o tipo de relação entre os pontos de interseção com variação da sweeping line.</p>
 <blockquote class="warning">
 <p>Dica:</p>
 <p>Para obter a resposta, ativar o trace do ponto de interseção.</p>
+</blockquote>
+<details class="answer">
+<summary>Resposta</summary>
 <p>Você deve ter concluido que os pontos tem uma relação linear uns com os outros. Essa linha que está sendo formada é justamente uma das arestas do diagrama de Voronoi.</p>
 <p>Então, conforme a sweeping line desce, o algoritmo está traçando a aresta que divide os dois pontos no diagrama</p>
-</blockquote>
+<figure class="img"><img src="img/mapa15.jpg" alt="Aresta sendo criada entre pelos pontos de interseção"></figure>
+</details>
 </blockquote>
 <blockquote class="question">
 <p>Pergunta</p>
@@ -199,6 +210,7 @@ Você está voando o dia todo e não conseguiu beber nenhum gole de água. Por s
 <details class="answer">
 <summary>Resposta</summary>
 <p>Conseguimos concluir que um ponto qualquer de um dos lados da linha está mais próximo do ponto de interesse que está do mesmo lado do que do outro ponto de interesse.</p>
+<figure class="img"><img src="img/mapa16.jpg" alt="Pontos equidistantes"></figure>
 </details>
 </blockquote>
 <p>Parabens, você acabou de entender a lógica por trás de um algoritmo de Fortune para 2 pontos em um grafico!</p>
@@ -206,9 +218,9 @@ Você está voando o dia todo e não conseguiu beber nenhum gole de água. Por s
 <p>Antes de adicionarmos um ponto, vamos entender o conceito da beachline.</p>
 <p>Como no início do handout, pense nos pontos equidistantes entre um ponto e a sweeping line — eles formam uma parábola. Pensou? Agora imagine duas dessas parábolas. A beachline é formada pelos pontos que estão ao mesmo tempo nas duas parábolas e que estão mais próximos da sweeping line em cada posição no eixo x.</p>
 <p>Aqui esta uma imagem que nos ajuda a visualizar isso.</p>
-<figure class="img"><img src="img/mapa13.jpg" alt="Beachline com 4 pontos"></figure>
-<p>Agora que entendemos o conceito, vamos adicionar um terceiro ponto. A lógica é a mesma para 4, 5 ou mais pontos, então, ao compreendermos o caso com 3, poderemos generalizar para qualquer quantidade.</p>
-<figure class="img"><img src="img/mapa14.jpg" alt="Beachline com 4 pontos"></figure>
+<figure class="img"><img src="img/mapa17.jpg" alt="Beachline com 2 pontos"></figure>
+<p>Agora que entendemos o conceito, vamos adicionar um terceiro ponto. A lógica é a mesma para 3, 5 ou mais pontos, então, ao compreendermos o caso com 3, poderemos generalizar para qualquer quantidade.</p>
+<figure class="img"><img src="img/mapa18.jpg" alt="Beachline com 3 pontos"></figure>
 <p>Criamos um <a href="https://www.geogebra.org/calculator/nghuzruv" target="_blank">arquivo do Geogebra</a> que facilita essa visualização e entendimento.</p>
 <hr>
 <h2>Três Pontos</h2>
