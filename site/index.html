@@ -323,45 +323,144 @@ No mesmo instante, o algoritmo registra o ponto onde isso acontece: o vértice d
 <p>Na implementação prática, não simulamos a linha movendo-se continuamente. Em vez disso, discretizamos o movimento em eventos — instantes relevantes em que algo muda na beachline. Se fossemos calcular a beachline para cada ponto, teríamos infinitos pontos, o que seria impossível de calcular.</p>
 <p>Desse jeito, precisamos fetuar cálculos apenas para cada ponto no mapa e para cada <em>circle event</em>.</p>
 <hr>
-<h2>Complexidade</h2>
-<p>Partindo para o tema de complexidade, vamos começar pensando sobre o numero de pontos de interesse e como ele vai impactar a complexidade</p>
+<h2>Complexidade do Algoritmo de Fortune</h2>
+<p>Agora que entendemos como o algoritmo funciona, vamos analisar sua eficiência: quanto tempo ele demora para construir um diagrama de Voronoi com n pontos?</p>
+<p>A resposta é <strong>O(n log n)</strong>, e vamos provar isso passo a passo.</p>
+<hr>
+<h2>1. Contando os Eventos</h2>
+<p>O algoritmo funciona processando <strong>eventos</strong> conforme a sweeping line desce. Já conhecemos os dois tipos:</p>
+<p><strong>Site Events (eventos de ponto):</strong> ocorrem quando a sweeping line atinge um ponto de interesse. Cada site event cria uma nova parábola na beachline.</p>
+<p><strong>Circle Events (eventos de círculo):</strong> ocorrem quando três parábolas adjacentes convergem num ponto. A parábola do meio desaparece e criamos um vértice do diagrama de Voronoi.</p>
 <blockquote class="question">
 <p>Pergunta</p>
-<p>Imagine que estamos criando um diagrama de voronoi com 5 pontos de interesse. Conforme a sweeping line desce, ela vai encontrando eventos.
-Quantos eventos principais você acha que teremos nesse caso?</p>
+<p>Quantos site events existem em um diagrama com n pontos?</p>
 <details class="answer">
 <summary>Resposta</summary>
-<p>Teremos 1 para cada ponto, entao 5 eventos principais.</p>
+<p>A resposta é fácil: exatamente <strong>n site events</strong>, um para cada ponto de interesse.</p>
 </details>
 </blockquote>
 <blockquote class="question">
 <p>Pergunta</p>
-<p>E se tivessemos 10 pontos de interesse? E 20?</p>
+<p>E quanto aos circle events? Quantos podem existir?</p>
 <details class="answer">
 <summary>Resposta</summary>
-<p>Você deve ter percebido que a quantidade de eventos principais é proporcional ao número de pontos de interesse.
-Cada ponto gera um novo evento — o algoritmo precisa lidar com todos eles, um por um.
-Isso já nos dá uma boa pista sobre a complexidade do algoritmo.</p>
+<p>Essa pergunta é mais difícil. Para respondê-la, precisamos entender quantos <strong>vértices</strong> pode ter um diagrama de Voronoi.</p>
+<p>Por quê? Porque cada circle event cria exatamente um vértice no diagrama. Então o número de circle events é igual ao número de vértices.</p>
+<p>Para descobrir quantos vértices pode ter um diagrama de Voronoi, vamos usar uma ferramenta poderosa da matemática: a <strong>Fórmula de Euler</strong>.</p>
 </details>
 </blockquote>
-<p>Mas sera que o algoritmo precisa se preocupar com todos os pontos a todo momento? A resposta e não! Essa e a grande diferenca do algoritmo de Fortune para os outros, ele so tem que se preocupar com os pontos vizinhos, então os pontos relativamente proximos da sweeping line</p>
+<hr>
+<h2>A Fórmula de Euler</h2>
+<p>O diagrama de Voronoi é um <strong>grafo planar</strong> — isso significa que suas arestas não se cruzam. Para todo grafo planar conectado, vale a seguinte relação:</p>
+<p><strong>V - E + F = 2</strong></p>
+<p>Onde:</p>
+<ul>
+<li><strong>V</strong> é o número de vértices (pontos onde 3 células se encontram)</li>
+<li><strong>E</strong> é o número de arestas (linhas que separam as células)</li>
+<li><strong>F</strong> é o número de faces (as células do diagrama)</li>
+</ul>
 <blockquote class="question">
 <p>Pergunta</p>
-<p>Pensando então que o algoritmo so precisa se preocupar com os pontos vizinhos, o que podemos concluir sobre a complexidade do algoritmo?</p>
-<p>Dica 1: Pode ajudar pensar em um algoritmo com 3 pontos e comparar com um algoritmo com 1000. Sera que ele faz o mesmo numero de contas novas para cada ponto de interesse novo que aparece? Ou sera que não esta tudo mais pronto e determinado ja?</p>
-<p>Dica 2: Como concluimos anteriormente, a complexidade e parcialmente linear, então sabemos que é O (n * algo)</p>
+<p>No nosso diagrama de Voronoi com n pontos, quantas faces temos?</p>
 <details class="answer">
 <summary>Resposta</summary>
-<p>A complexidade e O(n logn).</p>
-<p>Podemos concluir isso pensando que, além de lidar com cada ponto uma vez (por isso o n), o algoritmo também precisa manter os eventos em ordem conforme a sweeping line desce.</p>
-<p>Mas o que significa “manter em ordem”?</p>
-<p>Significa que, a cada novo ponto ou evento de círculo, o algoritmo atualiza sua lista de eventos — inserindo ou removendo itens de forma organizada.
-Essas pequenas atualizações explicam o log n na complexidade.</p>
+<p>Temos exatamente <strong>n faces</strong> — uma célula para cada ponto de interesse.</p>
+<p>Portanto: <strong>F = n</strong></p>
 </details>
 </blockquote>
-<p>Outros algoritmos para gerar diagramas de Voronoi são menos eficientes que o de Fortune.
-Um exemplo é o método direto por distância, que compara cada ponto do plano com todos os sítios e tem complexidade O(n²). Outro é o método incremental, que adiciona os pontos um a um e atualiza o diagrama a cada inserção, também com custo próximo de O(n²).
-Por isso, o algoritmo de Fortune se destaca como o mais rápido entre eles, com complexidade O(n log n).</p>
+<blockquote class="question">
+<p>Pergunta</p>
+<p>Qual é a relação entre vértices (V) e arestas (E)?</p>
+<blockquote class="warning">
+<p>Dica</p>
+<p>No diagrama de Voronoi, cada vértice tem grau 3 — exatamente 3 arestas se encontram nele.</p>
+</blockquote>
+<details class="answer">
+<summary>Resposta</summary>
+<p>Uma propriedade importante de grafos diz que a soma de todos os graus dos vértices é igual a 2E. Por quê? Porque cada aresta tem duas pontas, então ao somar os graus de todos os vértices, contamos cada aresta duas vezes.</p>
+<p>Se cada vértice tem grau 3, então:</p>
+<ul>
+<li>Soma dos graus = 3V</li>
+<li>Mas soma dos graus = 2E</li>
+</ul>
+<p>Portanto: <strong>3V = 2E</strong>, ou seja, <strong>E = (3V)/2</strong></p>
+<p>Agora podemos substituir tudo na Fórmula de Euler:</p>
+<p>V - E + F = 2</p>
+<p>V - (3V)/2 + n = 2</p>
+<p>Multiplicando tudo por 2 para eliminar a fração:</p>
+<p>2V - 3V + 2n = 4</p>
+<p>-V + 2n = 4</p>
+<p>-V = 4 - 2n</p>
+<p><strong>V = 2n - 4</strong></p>
+<p>Com ajustes técnicos para casos especiais (como pontos colineares), a matemática rigorosa mostra que:</p>
+<p><strong>V ≤ 2n - 5</strong></p>
+</details>
+</blockquote>
+<blockquote class="question">
+<p>Pergunta</p>
+<p>Então, quantos circle events pode ter um diagrama com n pontos?</p>
+<details class="answer">
+<summary>Resposta</summary>
+<p>Como cada circle event cria um vértice, e temos no máximo 2n - 5 vértices, então temos <strong>no máximo 2n - 5 circle events</strong>.</p>
+<p><strong>Total de eventos:</strong></p>
+<ul>
+<li>Site events: n</li>
+<li>Circle events: ≤ 2n - 5</li>
+<li><strong>Total: ≤ 3n - 5 = O(n) eventos</strong></li>
+</ul>
+</details>
+</blockquote>
+<hr>
+<h2>2. Custo de Processar Cada Evento</h2>
+<p>Sabemos que temos O(n) eventos. Mas quanto tempo o algoritmo leva para processar cada um?</p>
+<p>Quando um evento acontece, o algoritmo precisa fazer duas coisas principais:</p>
+<ol>
+<li><strong>Atualizar a beachline</strong> — inserir ou remover parábolas mantendo a ordem por posição <code class="terminal nohighlight">x</code></li>
+<li><strong>Atualizar a fila de eventos</strong> — inserir ou remover eventos futuros mantendo a ordem por posição <code class="terminal nohighlight">y</code></li>
+</ol>
+<p>Ambas as estruturas são implementadas usando <strong>árvores balanceadas</strong> (como árvores AVL ou rubro-negras).</p>
+<blockquote class="question">
+<p>Pergunta</p>
+<p>Por que árvores balanceadas custam O(log n)?</p>
+<details class="answer">
+<summary>Resposta</summary>
+<p>Uma árvore balanceada com n elementos tem altura log₂ n. Por exemplo:</p>
+<ul>
+<li>8 elementos → altura 3 (log₂ 8 = 3)</li>
+<li>1024 elementos → altura 10 (log₂ 1024 = 10)</li>
+</ul>
+<p>Para inserir, remover ou buscar um elemento, você precisa descer pela árvore nível por nível. Como a altura é log n, cada operação custa <strong>O(log n)</strong>.</p>
+<p>Portanto, o custo para processar cada evento é <strong>O(log n)</strong>.</p>
+</details>
+</blockquote>
+<hr>
+<h2>3. Multiplicando Tudo</h2>
+<p>Agora temos todas as peças do quebra-cabeça:</p>
+<ul>
+<li>Número de eventos: <strong>O(n)</strong></li>
+<li>Custo por evento: <strong>O(log n)</strong></li>
+</ul>
+<p>A complexidade total é:</p>
+<p><strong>O(n) × O(log n) = O(n log n)</strong></p>
+<hr>
+<h2>4. Comparando com Outros Métodos</h2>
+<p>Existem outros algoritmos para construir diagramas de Voronoi, mas o Algoritmo de Fortune é o mais eficiente.</p>
+<p>O <strong>método incremental</strong>, por exemplo, adiciona pontos um por um e recalcula o diagrama a cada inserção. Cada inserção pode afetar O(n) células existentes, resultando em complexidade <strong>O(n²)</strong>.</p>
+<p>Para n = 1000 pontos:</p>
+<ul>
+<li>Método incremental: aproximadamente 1.000.000 de operações</li>
+<li>Algoritmo de Fortune: aproximadamente 10.000 operações</li>
+</ul>
+<p><strong>O Algoritmo de Fortune é cerca de 100 vezes mais rápido.</strong></p>
+<blockquote class="question">
+<p>Pergunta</p>
+<p>Prossiga apenas quando tiver certeza de que entendeu:</p>
+<ol>
+<li>O número total de eventos é O(n), limitado pela Fórmula de Euler</li>
+<li>Cada evento custa O(log n) devido às árvores balanceadas</li>
+<li>A complexidade total é O(n) × O(log n) = O(n log n)</li>
+</ol>
+</blockquote>
 
 
         </main>
