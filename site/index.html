@@ -30,16 +30,16 @@
 <h2>Motivação</h2>
 <p><em>Como se encontrar pela cidade</em></p>
 <p>Imagine uma atividade rotineira como fazer uma <strong>ligação de vídeo</strong> para uma pessoa muito especial (para merecer uma ligação de vídeo, precisa ser especial mesmo). Nesse contexto, uma prioridade é enviar e receber informações com a <strong>menor latência</strong> possível.</p>
-<p>Ao seu redor, existem várias antenas de comunicação para as quais podemos mandar um sinal. Esse sinal vai ser retransmitido por vários pontos ao longo da infraestrutura global de comunicação até chegar no seu destino. A fim de <em>minimizar a latência</em> e aumentar a chance do sinal ser recebido sem perdas, seu celular enviar o sinal para a <strong>antena mais próxima</strong>.</p>
+<p>Ao seu redor, existem várias antenas de comunicação para as quais podemos mandar um sinal. Esse sinal vai ser retransmitido por vários pontos ao longo da infraestrutura global de comunicação até chegar no seu destino. A fim de <em>minimizar a latência</em> e aumentar a chance do sinal ser recebido sem perdas, seu celular deve enviar o sinal para a <strong>antena mais próxima</strong>.</p>
 <p>Seu celular sabe sua posição no mapa e a posição das antenas ao seu redor:</p>
 <figure class="img"><img src="img/mapa1.jpg" alt="Mapa da cidade"></figure>
 <blockquote class="warning">
 <p>Aviso</p>
-<p>Como é descobrimos qual a antena mais próxima de você?</p>
+<p>Como descobrimos qual a antena mais próxima de você?</p>
 </blockquote>
 <h2>Método das distâncias:</h2>
 <figure class="img"><img src="img/mapa2.jpg" alt="Mapa da cidade com coordenadas"></figure>
-<p>É possível calcular todas as distâncias entre os você e cada um dos pontos utilizando o teorema de pitágoras.</p>
+<p>É possível calcular todas as distâncias entre você e cada um dos pontos utilizando o teorema de pitágoras.</p>
 <figure class="table"><table>
 <thead>
 <tr>
@@ -79,19 +79,20 @@
 </tbody>
 </table></figure>
 <p>A antena mais próxima seria a <strong>Antena 2</strong> com <strong>1.12km</strong> de distância</p>
-<p>É notável que essa tarefa não é muito eficiente. E, se saíssemos da mesma posição, precisaríamos calcular todas as distâncias novamente.</p>
-<p>E se existisse um mapa que indique, para qualquer posição, qual a antena mais próxima?</p>
+<p>É notável que essa tarefa não é muito eficiente. E se mudássemos posição, precisaríamos calcular todas as distâncias novamente.</p>
+<p>E se existisse um mapa pré-calculado que dividisse a cidade em regiões, onde cada região indica qual antena está mais próxima? Bastaria olhar em qual região você está!</p>
 <h2>Subdivisão por células</h2>
 <p>Vamos começar por um exemplo simples. Temos apenas duas antenas no nosso mapa:</p>
 <figure class="img"><img src="img/mapa3.jpg" alt="Duas antenas no mapa"></figure>
-<p>Como podemos dividir esse espaço de modo a indicar, para qualquer ponto no mapa, qual a antena mais próxima?</p>
+<p>Como podemos dividir esse espaço de modo a indicar, para qualquer ponto no mapa, qual é a antena mais próxima?</p>
 <p><span id="2pontos"></span></p>
 <blockquote class="question">
 <p>Pergunta</p>
 <p>Pegue um papel e uma caneta e tente desenhar esse diagrama!</p>
 <details class="answer">
 <summary>Resposta</summary>
-<p>Vamos traçar uma aresta que passa entre ambas as fontes e pintar de azul todos os pontos em que estão à esquerda dela e de verde aqueles que estão a sua direita:</p>
+<p>Primeiro, vamos traçar uma <strong>reta perpendicular</strong> que passa pelo ponto médio entre as duas antenas (a mediatriz).</p>
+<p>Depois, vamos pintar de azul todos os pontos em que estão à esquerda dessa aresta, e de verde aqueles que estão à sua direita:</p>
 <figure class="img"><img src="img/mapa4.jpg" alt="Subdivisão do mapa em duas células"></figure>
 <p>Agora, sabemos que, se você estiver em qualquer ponto azul, o ponto mais próximo é a <code class="language-md">Antena A</code>. Se você estiver em qualquer ponto verde, porém, o ponto mais próximo é a <code class="language-md">Antena B</code>.</p>
 </details>
@@ -103,26 +104,29 @@
 <p>Pegue um papel e uma caneta e tente desenhar esse diagrama!</p>
 <details class="answer">
 <summary>Resposta</summary>
-<p>Se traçarmos uma reta que divide cada um das antenas entre si, podemos criar três arestas que subdividem o espaço em três células distintas.</p>
+<p>Se traçarmos a mediatriz entre cada par de antenas (retas perpendiculares que passam pelos pontos médios), conseguimos criar três arestas que subdividem o espaço em três células distintas.</p>
 <figure class="img"><img src="img/mapa6.jpg" alt="Três células no mapa"></figure>
 <!-- Se ligarmos uma reta ligando dois pontos quaisquer e traçarmos outra reta perpendicular a ela que cruza o seu centro, conseguimos subdividir o espaço com três arestas. -->
 <p><strong>Observe atentamente esse diagrama e preste atenção nos detalhes:</strong></p>
 <ul>
 <li>
-<p>O cruzamento de todos os segmentos de reta é no <strong>baricentro</strong> do triangulo formado pelas ligações entre os pontos.</p>
+<p>As três arestas se encontram em um único ponto: o <strong>baricentro</strong> (centro geométrico) do triângulo formado pelas antenas.</p>
 </li>
 <li>
-<p>O ângulo entre cada uma das arestas e as retas que ligam 2 pontos é de 90º.</p>
+<p>O ângulo entre cada uma das arestas e as retas que ligam 2 antenas é de 90º.</p>
 </li>
 <li>
-<p>Uma aresta sempre <strong>divide ao meio</strong> uma reta que liga dois pontos.</p>
+<p>Uma aresta sempre <strong>divide ao meio</strong> uma reta que liga duas antenas.</p>
 </li>
 </ul>
 <p>Assim, é muito mais fácil ver qual a antena mais próxima para qualquer ponto do mapa!</p>
 </details>
 </blockquote>
 <h2>Diagrama de Voronoi:</h2>
-<p>Dividindo pontos com arestas dessa maneira, podemos criar um mapa que nos conta exatamente qual o ponto mais próximo! Esse é o princípio do <strong>Diagrama de Voronoi</strong>.</p>
+<p>Essa divisão sistemática do espaço em células é o <strong>Diagrama de Voronoi</strong>.</p>
+<p>Cada célula representa uma <strong>região de influência</strong>: todos os pontos dentro dela estão mais próximos de uma antena específica do que de qualquer outra.
+Ao invés de calcular N distâncias a cada mudança de posição, você faz uma única consulta visual. O mapa faz o trabalho pesado por você.</p>
+<p>E funciona para qualquer quantidade de pontos - 3 antenas, 100 antenas, 10.000 antenas. O princípio é o mesmo.</p>
 <figure class="img"><img src="img/Coloured_Voronoi_2D.png" alt="Diagrama de Voronoi"></figure>
 <p>Source: <a href="https://pt.wikipedia.org/wiki/Diagrama_de_Voronoy" target="_blank">Wikipédia</a></p>
 <h2>O algoritmo de Fortune</h2>
@@ -130,10 +134,10 @@
 <p>Vamos começar com o exemplo abaixo:</p>
 <blockquote class="question">
 <p>Pergunta</p>
-<p>Pegue um papel e caneta e desenhe um ponto pequeno (chamaremos de ponto1), com uma linha horizontal poucos centimetros abaixo e desenhe 5 pontos sobre essa linha (Facilita se você colocar o ponto do meio exatamente embaixo do ponto1). Agora tente encontrar os pontos de equidistancia entre o ponto original e os pontos sobre a linha.</p>
+<p>Pegue um papel e caneta e desenhe um ponto pequeno (chamaremos de ponto 1), com uma linha horizontal (chamaremos de sweeping line) poucos centimetros abaixo e desenhe 5 pontos sobre essa linha horizontal (Facilita se você colocar o ponto do meio exatamente embaixo do ponto 1). Agora tente encontrar os pontos de equidistância entre o ponto original e os pontos sobre a linha.</p>
 <p>Vai ficar algo parecido com isso:</p>
 <figure class="img"><img src="img/mapa7.jpg" alt="Ponto e Pontos na linha"></figure>
-<p>Agora, tente encontrar os pontos equidistantes entre os pontos da linha e o ponto 1</p>
+<p>Agora, tente encontrar os pontos equidistantes entre os pontos da linha horizontal e o ponto 1</p>
 <details class="answer">
 <summary>Resposta</summary>
 <p>Seu diagrama deve ficar algo parecido com:</p>
@@ -145,10 +149,19 @@
 <p>Você consegue perceber alguma relação entre esses pontos? Que formato esse padrão formaria?</p>
 <details class="answer">
 <summary>Resposta</summary>
-<p>Você deve ter concluido que os pontos de equidistancia formam uma parabola</p>
+<p>Você deve ter concluido que os pontos de equidistância formam uma parábola</p>
 <figure class="img"><img src="img/mapa9.jpg" alt="Parabola"></figure>
 </details>
 </blockquote>
+<p><strong>Mas… o que essa parábola realmente significa?</strong></p>
+<p>Essa parábola está dividindo nosso espaço em duas regiões:</p>
+<ul>
+<li><strong>Dentro da parábola:</strong> pontos mais próximos do <code class="language-md">Ponto 1</code></li>
+<li><strong>Fora da parábola:</strong> pontos mais próximos da <code class="language-md">sweeping line</code> (ou de qualquer coisa abaixo dela)</li>
+</ul>
+<p>Aqui está o pulo do gato: a sweeping line está <strong>varrendo</strong> o plano de cima para baixo. Conforme ela desce, vamos “descobrindo” novos pontos. A parábola representa <strong>o máximo de informação que temos até agora</strong> sobre a região de influência do Ponto 1.</p>
+<p>É uma <strong>construção parcial</strong> do diagrama. Ainda não sabemos como será o formato final, mas já sabemos que tudo dentro dessa parábola definitivamente pertence à região do Ponto 1 - pelo menos em relação a tudo que já varremos.</p>
+<hr>
 <p>Agora partimos para um segundo instante. Vamos imaginar que a sweeping line desceu um pouco, para um pouco mais longe do nosso ponto 1.</p>
 <blockquote class="question">
 <p>Pergunta</p>
