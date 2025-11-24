@@ -172,11 +172,19 @@
 <figure class="img"><img src="img/mapa12.jpg" alt="Duas parábolas"></figure>
 <blockquote class="question">
 <p>Pergunta</p>
-<p>Antes de continuar, tente refletir sobre o que esse ponto de interseção significa. Utilizando o conhecimento de como os pontos da parábola são formados.</p>
+<p>Esses cruzamentos não são apenas coincidências gráficas; eles têm um significado geométrico profundo.</p>
+<p>Antes de continuar, tente refletir sobre o que esse ponto de interseção significa utilizando o conhecimento de como os pontos da parábola são formados.</p>
 <details class="answer">
 <summary>Resposta</summary>
+<p>Para entender o que realmente está acontecendo nesses pontos, precisamos olhar para o que eles representam em termos de distância.</p>
 <figure class="img"><img src="img/mapa13.jpg" alt="Pontos equidistantes"></figure>
-<p>Se a parábola é formada pelos pontos que são equidistantes entre o ponto de interesse e a sweeping line, o ponto de interseção entre duas parábolas equidistante para ambas.</p>
+<p>Esse ponto está equidistante de três elementos:</p>
+<ul>
+<li>do Ponto 1,</li>
+<li>do Ponto 2,</li>
+<li>da sweeping line.</li>
+</ul>
+<p>Se utilizarmos essas parábolas para dividir a área em subregiões de controle, temos a seguinte imagem:</p>
 <figure class="img"><img src="img/mapa14.jpg" alt="Pontos equidistantes"></figure>
 <p>Para os pontos acima das parábolas, aqueles à esquerda do ponto de intersecção na área <em>azul</em> estão mais próximos do <code class="language-md">Ponto 1</code> enquanto aqueles à direita na área <em>verde</em> estão mais próximos do <code class="language-md">Ponto 2</code>.</p>
 </details>
@@ -215,97 +223,67 @@
 </blockquote>
 <p>Parabens, você acabou de entender a lógica por trás de um algoritmo de Fortune para 2 pontos em um grafico!</p>
 <hr>
-<p>Antes de adicionarmos um ponto, vamos entender o conceito da beachline.</p>
-<p>Como no início do handout, pense nos pontos equidistantes entre um ponto e a sweeping line — eles formam uma parábola. Pensou? Agora imagine duas dessas parábolas. A beachline é formada pelos pontos que estão ao mesmo tempo nas duas parábolas e que estão mais próximos da sweeping line em cada posição no eixo x.</p>
-<p>Aqui esta uma imagem que nos ajuda a visualizar isso.</p>
+<p>Antes de adicionarmos um ponto, vamos entender o conceito da <strong>Beachline</strong>.</p>
+<p>Quando analisamos os pontos relevantes para a divisão da área em <em>regiões de controle</em> os segmentos acima do ponto de interseção podem ser ignorados pois não nos dizem muita coisa.</p>
+<p>Apenas observando os outros segmentos nós podemos observar esse padrão, que podemos chamar de <strong>Beachline</strong> (ele se assemelha à linha formada pelo encontro do mar com a areia, dai vem o nome):</p>
 <figure class="img"><img src="img/mapa17.jpg" alt="Beachline com 2 pontos"></figure>
-<p>Agora que entendemos o conceito, vamos adicionar um terceiro ponto. A lógica é a mesma para 3, 5 ou mais pontos, então, ao compreendermos o caso com 3, poderemos generalizar para qualquer quantidade.</p>
+<p>Se adicionarmos um terceiro ponto, a ideia se mantem a mesma: pegamos apenas os segmentos que ligam os pontos de interseção e os segmentos das extremidades.</p>
 <figure class="img"><img src="img/mapa18.jpg" alt="Beachline com 3 pontos"></figure>
-<p>Criamos um <a href="https://www.geogebra.org/calculator/nghuzruv" target="_blank">arquivo do Geogebra</a> que facilita essa visualização e entendimento.</p>
-<hr>
-<h2>Três Pontos</h2>
-<p>Agora que você já entendeu a lógica para um ponto e para dois pontos, chegou a hora de adicionar o terceiro.</p>
-<p>Prepare o papel e a caneta: desenhe três pontos não alinhados — algo como um triângulo.
-A sweeping line (linha de varredura) começa acima desses pontos e começa a descer lentamente.</p>
-<p>Cada ponto vai gerar sua própria parábola, exatamente como vimos antes.</p>
-<blockquote class="question">
-<p>Pergunta</p>
-<p>Desenhe as três parábolas com a sweeping line passando logo abaixo dos pontos.
-O que você percebe?</p>
-<details class="answer">
-<summary>Resposta</summary>
-<figure class="img"><img src="img/beachline_3pts.png" alt="Beachline 3 pontos"></figure>
-<p>Perceba que cada ponto (P₁, P₂ e P₃) gera uma parábola diferente — cada uma representa todos os lugares que estão à mesma distância entre aquele ponto e a sweeping line.
-A linha roxa na base, chamada beachline, é formada pelos trechos mais baixos dessas parábolas, isto é, os pontos mais próximos da sweeping line em cada posição no eixo x.</p>
-<p>Os pontos A e B são as interseções entre as parábolas — eles marcam os limites entre as regiões de influência dos pontos.</p>
-<p>Esses pontos de interseção são o primeiro indício das arestas do Diagrama de Voronoi:
-eles mostram onde a influência de um ponto termina e a de outro começa.</p>
-</details>
-</blockquote>
-<hr>
-<h2>O Segredo das Interseções</h2>
-<p>Vamos observar com mais atenção os pontos A e B.
-Eles aparecem exatamente onde as parábolas se cruzam — onde a influência de um ponto começa a dar lugar à de outro.</p>
-<p>Esses cruzamentos não são apenas coincidências gráficas; eles têm um significado geométrico profundo.
-Para entender o que realmente está acontecendo nesses pontos, precisamos olhar para o que eles representam em termos de distância.</p>
-<blockquote class="question">
-<p>Pergunta</p>
-<p>Se um ponto está na interseção de duas parábolas, o que isso significa sobre as distâncias?</p>
-<details class="answer">
-<summary>Resposta</summary>
-<figure class="img"><img src="img/circunferencia_1.png" alt="Equidistancia de 2 Pontos"></figure>
-<p>Esse ponto está equidistante de três elementos:</p>
-<ul>
-<li>do Ponto 1,</li>
-<li>do Ponto 2,</li>
-<li>da sweeping line.</li>
-</ul>
-</details>
-</blockquote>
-<p>Agora imagine que a sweeping line continua descendo lentamente de ponto a ponto.
-Cada vez que ela se move, as parábolas mudam de forma e os pontos de interseção (como A e B) também se deslocam.</p>
-<p>Mas há um instante muito especial: o momento em que as três parábolas se encontram em um único ponto.</p>
-<blockquote class="question">
-<p>Pergunta</p>
-<p>O que isso significa?</p>
-<details class="answer">
-<summary>Resposta</summary>
-<figure class="img"><img src="img/circunferencia_2.png" alt="Equidistancia de 3 Pontos"></figure>
-<p>Nesse exato ponto, estamos à mesma distância de:</p>
-<ul>
-<li>Ponto 1</li>
-<li>Ponto 2</li>
-<li>Ponto 3</li>
-<li>e da sweeping line</li>
-</ul>
-<p>É como se o espaço “entrasse em equilíbrio” entre os três pontos — nenhum deles é mais próximo que o outro.</p>
-</details>
-</blockquote>
-<hr>
+<p>Assim, conseguimos a área entre os pontos mais próximos dos pontos de controle e aqueles mais próximos da sweeping line.</p>
+<figure class="img"><img src="img/mapa19.jpg" alt="Beachline com 3 pontos"></figure>
 <h2>A “Parábola Engolida”</h2>
-<p>Você já viu que, em um instante específico, as três parábolas se encontram em um mesmo ponto —
-aquele ponto que está à mesma distância dos três focos e da sweeping line.</p>
-<p>Nesse momento, algo marcante acontece:
-a parábola do ponto mais alto desaparece da beachline — ela é “engolida” pelas outras duas.</p>
+<p>Criamos um <a href="https://www.geogebra.org/calculator/nghuzruv" target="_blank">arquivo do Geogebra</a> que facilita visuaizarmos a evolução da beachline conforme a sweeping line avança.</p>
+<p>Interaja com ele: mova a beachline e os pontos e veja o que acontece.</p>
 <blockquote class="question">
 <p>Pergunta</p>
-<p>O que isso significa sobre as distâncias?</p>
+<p>Inicialmente temos três pontos. O do meio está mais para cima do gráfico do que os outros dois.</p>
+<p>Conforme descemos, o que acontece com os pontos de interseção das parábolas?</p>
 <details class="answer">
 <summary>Resposta</summary>
+<p>Em um instante específico, as três parábolas se encontram em um mesmo ponto.</p>
+<figure class="img"><img src="img/mapa20.jpg" alt="Interseção de 3 pontos"></figure>
+</details>
+</blockquote>
+<p>Ok, já vimos interseções entre parábolas antes, sabemos o que isso significa.</p>
+<p>O problema aparece quando descemos com a sweepline:</p>
+<figure class="img"><img src="img/mapa21.jpg" alt="Interseção de 3 pontos novamente"></figure>
+<p>Temos novamente 3 pontos de interseção. O problema, porém, é que o ponto do meio está muito mais abaixo do que os outros dois.</p>
+<blockquote class="question">
+<p>Pergunta</p>
+<p>Se tentarmos construir uma beachline a partir dessas parábolas, seguindo as regras que vimos, como ela seria formada?</p>
+<details class="answer">
+<summary>Resposta</summary>
+<p>Nesse momento, algo marcante acontece: a parábola do ponto mais alto desaparece da beachline — ela é “engolida” pelas outras duas, pois os segmentos em verde e amarelo que formam as interseções estão acima do ponto de interseção.</p>
+<figure class="img"><img src="img/mapa22.jpg" alt="Beachline com 3 pontos"></figure>
+</details>
+</blockquote>
+<blockquote class="warning">
+<p>Aviso</p>
+<p>Nessa configuração, então, não faz mais sentido calcular a parábola de cima pois ela não faz mais diferença para a beachline.</p>
+<p><strong>Mas, quando encontramos o momento certo para parar de calcular?</strong></p>
+</blockquote>
+<p>Na verdade, já temos essa informação! Na interseção entre os três pontos.</p>
+<blockquote class="question">
+<p>Pergunta</p>
+<p>Ok, é fácil ver quando isso acontece arrastando um slider no Geogebra.</p>
+<p>Como descobrimos onde colocar a nossa sweeping line sem precisarmos ficar arrastando até achar o valor correto?</p>
+<blockquote class="warning">
+<p>Dica</p>
 <p>Esse ponto está à mesma distância dos três focos e da sweeping line.
 Se registrássemos todos os pontos que mantêm essa distância constante, formaríamos um contorno fechado.</p>
+</blockquote>
+<details class="answer">
+<summary>Resposta</summary>
 <p>Pense: qual é a forma geométrica que reúne todos os pontos que estão à mesma distância de um mesmo centro?</p>
-<figure class="img"><img src="img/circunferencia_3.png" alt="Circunferencia"></figure>
-<p>Exatamente — um círculo!</p>
+<p>Exatamente — um <strong>círculo</strong>!</p>
+<figure class="img"><img src="img/mapa23.jpg" alt="Circunferencia"></figure>
 </details>
 </blockquote>
 <hr>
 <h2>O Evento de Círculo</h2>
 <p>Esse instante especial recebe o nome de evento de círculo (circle event) no algoritmo de Fortune.</p>
-<p>Ele marca o momento exato em que uma das parábolas da beachline desaparece —
-ou, como se diz, morre.
-No mesmo instante, o algoritmo registra o ponto onde isso acontece:
-o vértice de Voronoi, o local onde as três células se encontram.</p>
+<p>Ele marca o momento exato em que uma das parábolas da beachline desaparece — ou, como se diz, morre.
+No mesmo instante, o algoritmo registra o ponto onde isso acontece: o vértice de Voronoi, o local onde as três células se encontram.</p>
 <blockquote class="question">
 <p>Pergunta</p>
 <p>Tente visualizar:
