@@ -158,6 +158,15 @@ Você deve ter concluido que os pontos de equidistância formam uma parábola
 
 **Mas... o que essa parábola realmente significa?**
 
+Essa parábola está dividindo nosso espaço em duas regiões:
+- **Dentro da parábola:** pontos mais próximos do `md Ponto 1`
+- **Fora da parábola:** pontos mais próximos da `md sweeping line` (ou de qualquer coisa abaixo dela)
+
+Aqui está o pulo do gato: a sweeping line está **varrendo** o plano de cima para baixo. Conforme ela desce, vamos "descobrindo" novos pontos. A parábola representa **o máximo de informação que temos até agora** sobre a região de influência do Ponto 1.
+
+É uma **construção parcial** do diagrama. Ainda não sabemos como será o formato final, mas já sabemos que tudo dentro dessa parábola definitivamente pertence à região do Ponto 1 - pelo menos em relação a tudo que já varremos.
+
+---
 
 ![Divisão do espaço em duas áreas pela parábola](mapa11.jpg)
 
